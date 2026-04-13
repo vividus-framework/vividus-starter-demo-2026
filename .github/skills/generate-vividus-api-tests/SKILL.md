@@ -25,9 +25,9 @@ allowed-tools: shell
 bash .github/skills/generate-vividus-api-tests/save-openapi.sh
 ```
 
-The script prints the full YAML specification content to stdout. Treat **the entire stdout output** as the OpenAPI specification and use it directly for parsing below.
+The script saves the specification to a file inside the repository and prints the **absolute path** to that file on stdout (e.g. `/path/to/repo/.github/skills/generate-vividus-api-tests/openapi.yaml`). Capture the path from stdout and use `read_file` (or an equivalent tool) to load the specification from that path for parsing below.
 
-**ABORT** if the script fails, exits with a non-zero code, or produces empty output. Report the error (from stderr) to the user and stop.
+**ABORT** if the script fails, exits with a non-zero code, or produces empty/non-path output. Report the error (from stderr) to the user and stop.
 
 ### Parse specification and extract:
 - **Base URL**: API server address
@@ -40,7 +40,8 @@ The script prints the full YAML specification content to stdout. Treat **the ent
 
 **ABORT** further execution if:
 - The script `.github/skills/generate-vividus-api-tests/save-openapi.sh` fails or is not found
-- The script produces empty or non-YAML output
+- The script produces empty output or does not print a valid file path
+- The file at the printed path is empty or missing
 - Specification format is not supported (only OpenAPI 2.0/3.x supported)
 
 When aborting, report the script output or error and ask the user to fix the script before retrying.
@@ -108,6 +109,7 @@ Generate tests only for user-specified combinations:
 3. **Data Tables:** Use Examples blocks for parameterized API tests
 4. **Composite Steps:** Reuse existing composite steps for common API patterns
 5. **Variables:** Store and reuse response data using VIVIDUS variables
+6. **Request Headers Scope:** `When I set request headers:` and `When I add request headers:` apply to the **first subsequent HTTP request only**. Repeat the full header table immediately before **each** HTTP request step in the same scenario.
 
 ### API Test Structure
 
@@ -145,6 +147,80 @@ For POST/PUT/PATCH requests with JSON bodies:
 Given request body: {"name": "Test User", "email": "test@example.com"}
 ```
 
+### Content-Type Header
+
+**ALWAYS include `Content-Type: application/json` header for every POST, PUT, and PATCH request** that sends a JSON body. Without it the server may reject the request or misinterpret the body.
+
+Place the `Content-Type` row in the same `When I add request headers:` table as the `Authorization` header immediately before the request body and the HTTP request step:
+
+```gherkin
+When I add request headers:
+|name         |value            |
+|Authorization|Token ${token}   |
+|Content-Type |application/json |
+Given request body: {"name": "#{generate(Name.fullName)}"}
+When I execute HTTP POST request for resource with URL `${main-page-url}api/resource/`
+```
+
+**Rules:**
+- `Content-Type` is **required** for: POST, PUT, PATCH
+- `Content-Type` is **not needed** for: GET, DELETE (no request body)
+
+### Dynamic Data Generation
+
+**NEVER use hardcoded static values** for fields in request bodies when creating or modifying entities (names, emails, titles, descriptions, identifiers, etc.). Hardcoded values cause test collisions in shared environments and make tests non-idempotent.
+
+**ALWAYS pick the most appropriate VIVIDUS expression** for each field type. Full expression reference: https://docs.vividus.dev/vividus/latest/commons/expressions.html
+
+#### Choosing the right expression
+
+| Use case | Expression | Example output |
+|---|---|---|
+| Realistic names, emails, addresses, companies, etc. | `#{generate($DataProvider.$method)}` | `John Smith`, `john@example.com` |
+| Random integer in a range | `#{randomInt($min, $max)}` | `42` |
+| Pick one from a fixed set of values | `#{anyOf($val1, $val2, $val3)}` | `active` |
+| String matching a regex pattern | `#{generate(regexify '$regex')}` | `409Y` |
+| Digits-only pattern (`#` → digit) | `#{generate(numerify '$pattern')}` | `test5862test` |
+| Letters-only pattern (`?` → letter) | `#{generate(letterify '$pattern')}` | `testNJMYtest` |
+| Mixed letters and digits (`?`/`#`) | `#{generate(bothify '$pattern')}` | `2o7v0g9` |
+| Computed / derived value | `#{eval($jexlExpression)}` | `28` |
+
+**`#{generate(...)}` data providers** — delegates to [DataFaker](https://www.datafaker.net/documentation/providers/). Common providers:
+
+| Field type | Expression |
+|---|---|
+| Full name | `#{generate(Name.fullName)}` |
+| First name | `#{generate(Name.firstName)}` |
+| Company name | `#{generate(Company.name)}` |
+| Email address | `#{generate(Internet.emailAddress)}` |
+| Description / sentence | `#{generate(Lorem.sentence)}` |
+| Single word | `#{generate(Lorem.word)}` |
+| UUID | `#{generate(Internet.uuid)}` |
+| Street address | `#{generate(Address.streetAddress)}` |
+| Pattern-based string | `#{generate(regexify '\d{3}\w{1}')}` |
+
+✅ **Good** — each expression picks the most semantically appropriate generator:
+
+```gherkin
+Given request body: {"name": "#{generate(Name.fullName)}", "email": "#{generate(Internet.emailAddress)}", "quantity": "#{randomInt(1, 100)}", "status": "#{anyOf(active, pending, closed)}"}
+```
+
+❌ **Bad** — hardcoded static values that break on re-runs or in shared environments:
+
+```gherkin
+Given request body: {"name": "Test User", "email": "test@example.com", "quantity": "5", "status": "active"}
+```
+
+When the generated value must be referenced later (e.g. to assert it in a GET response), save it to a variable first:
+
+```gherkin
+Given I initialize scenario variable `templateName` with value `#{generate(Lorem.word)}`
+Given request body: {"name": "${templateName}"}
+When I execute HTTP POST request for resource with URL `${main-page-url}api/resource/`
+Then response code is equal to `201`
+Then JSON element value from `${response}` by JSON path `$.name` is equal to `${templateName}`
+```
+
 ### Response Validation
 
 Always validate at minimum:
@@ -159,6 +235,31 @@ Then response code is equal to `200`
 Then number of JSON elements from `${response}` by JSON path `$.id` is equal to 1
 Then JSON element value from `${response}` by JSON path `$.name` is equal to `Test User`
 ```
+
+### Array / Collection Validation
+
+When validating arrays or lists in responses (e.g. `$.results`, `$.items`, `$.data`), **never assert an exact count of elements** unless the test controls the full data set. A shared or pre-populated environment may already contain more items than expected.
+
+**Rules:**
+
+1. **Do NOT use `is equal to 1` or any fixed count** for arrays that represent collection endpoints (e.g. a list of resources). This will fail when other records exist.
+2. **Instead, assert `is greater than 0`** to confirm the array is non-empty:
+   ```gherkin
+   Then number of JSON elements from `${response}` by JSON path `$.results` is greater than 0
+   ```
+3. **When a resource was created as a prerequisite**, verify that the specific item appears in the response by searching for it using its known field value rather than relying on count:
+   ```gherkin
+   Then number of JSON elements from `${response}` by JSON path `$.results[?(@.name == 'Test User')]` is equal to 1
+   ```
+4. **For single-object responses** (detail endpoints such as `GET /api/resource/{id}/`), asserting count `is equal to 1` for a single scalar field (e.g. `$.pk`) is correct and expected.
+
+**Summary table:**
+
+| Response type | Correct assertion |
+|---|---|
+| List/collection endpoint (array of items) | `is greater than \`0\`` or filter by known value |
+| Detail endpoint (single object field) | `is equal to \`1\`` |
+| Prerequisite-created item in a list | Filter JSON path: `$.results[?(@.field == 'value')]` count `is equal to 1` |
 
 ### Parameterization with Examples
 

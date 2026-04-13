@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
-# Fetches the latest InvenTree OpenAPI spec from github.com/inventree/schema
-# and prints it to stdout so it can be consumed directly by the caller.
+# Fetches the latest InvenTree OpenAPI spec from github.com/inventree/schema,
+# saves it to .github/skills/generate-vividus-api-tests/openapi.yaml inside the
+# repository, and prints the absolute path to stdout for the caller to use.
 set -euo pipefail
 
 OWNER="inventree"
 REPO="schema"
 BRANCH="main"
+
+# Resolve the repository root (directory containing this script's parent chain)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+OUTPUT_FILE="$SCRIPT_DIR/openapi.yaml"
 
 response=$(curl -s "https://api.github.com/repos/$OWNER/$REPO/contents/export?ref=$BRANCH")
 
@@ -24,4 +29,12 @@ if [ -z "$latest_dir" ]; then
 fi
 
 curl -sL \
-  "https://raw.githubusercontent.com/$OWNER/$REPO/$BRANCH/export/$latest_dir/api.yaml"
+  "https://raw.githubusercontent.com/$OWNER/$REPO/$BRANCH/export/$latest_dir/api.yaml" \
+  -o "$OUTPUT_FILE"
+
+if [ ! -s "$OUTPUT_FILE" ]; then
+  echo "Downloaded file is empty: $OUTPUT_FILE" >&2
+  exit 1
+fi
+
+echo "$OUTPUT_FILE"

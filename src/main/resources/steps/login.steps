@@ -1,0 +1,14 @@
+Composite: When I save access token for user with username `$username` and password `$password` to `$variableLevel` variable `$variableName`
+When I add request headers:
+|name         |value                                         |
+|Authorization|Basic #{encodeToBase64(<username>:<password>)}|
+When I execute HTTP GET request for resource with URL `${main-page-url}/api/user/token/`
+Then response code is equal to `200`
+When I save JSON element value from `${response}` by JSON path `$.token` to <variableLevel> variable `<variableName>`
+
+Composite: When I login to web app with username `${username}` and password `${password}`
+Given I am on main application page
+When I enter `<username>` in field located by `fieldName(username)`
+When I enter `<password>` in field located by `fieldName(password)`
+When I click on element located by `caseInsensitiveText(Log In)`
+When I wait until element located by `caseInsensitiveText(Logged in successfully)` appears
