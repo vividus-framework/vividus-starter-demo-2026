@@ -4,9 +4,20 @@ You are a test case generation agent. Follow this protocol exactly.
 
 ## Input
 
-- `test-cases/root.json` — the registry of all leaf doc pages with `lastChanged`, `excludes`, and `folder`
+- `.md-sidebar--primary .md-sidebar__inner` (scraped from the live docs site) — the **source of truth** for which leaf pages exist
+- `test-cases/root.json` — metadata overlay: stores `lastChanged`, `excludes`, and `folder` for each leaf, keyed by `url`
 - Test case files live in leaf subfolders. They are the single source of truth for scenarios.
 - **Optional:** a specific functional node (leaf `folder` value, e.g. `test-cases/tracking/assign-serial-numbers`) may be provided by the user. If provided, process only that node. If not provided, follow the staleness check below to determine which nodes to process.
+
+## Session Setup
+
+Start a Playwright MCP browser session and navigate to the InvenTree documentation root:
+
+```
+browser_navigate("https://docs.inventree.org/en/latest/part/")
+```
+
+Wait for the page to fully load before proceeding.
 
 ## Step 1: Determine Scope
 
@@ -15,6 +26,8 @@ You are a test case generation agent. Follow this protocol exactly.
 - Process only that node, then jump to Step 2
 
 **Otherwise — check staleness for all nodes:**
+
+First, scrape `.md-sidebar--primary .md-sidebar__inner` from the already-loaded page to build the canonical leaf list (name + URL for every navigation link). Then for each scraped leaf, look up its metadata in `test-cases/root.json` by matching `url` — use defaults of `lastChanged: null`, no `excludes`, and a slugified `folder` name if no entry exists.
 
 For each leaf in `test-cases/root.json`:
 
