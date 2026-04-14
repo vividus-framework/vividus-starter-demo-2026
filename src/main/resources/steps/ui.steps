@@ -25,3 +25,7 @@ When I wait until element located by `tagName(table)` appears
 Composite: When I open parts system settings
 When I go to relative URL `/web/settings/system/parts`
 When I wait until element located by `caseInsensitiveText(System Settings)` appears
+
+Composite: When I open subcategories tab
+When I click on element located by `xpath(//button[contains(@id, 'tab-subcategories') and @data-placement])`
+When I wait until element located by `name(action-button-add-part-category)` appears

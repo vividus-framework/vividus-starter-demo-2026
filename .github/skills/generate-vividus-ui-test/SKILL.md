@@ -158,6 +158,11 @@ In summary report for each test case step, assess coverage status and notes:
 3. **Data Tables:** Use Examples blocks for parameterized scenarios
 4. **Composite Steps:** Reuse existing composite steps; propose new ones for repeated patterns
 5. **Contextual Steps:** When using parent element context, ensure child locators are relative
+6. **Story Independence (CRITICAL):** Every story **MUST** be fully self-contained. Stories run in non-deterministic order and cannot share state.
+   - **NEVER** reference parts, categories, stock items, or any other data created by another story
+   - **NEVER** assume pre-seeded or pre-existing data (e.g., hardcoded IDs, assumed part names)
+   - **ALWAYS** create all required test data via UI steps within the same scenario
+   - Append the test case ID (e.g., `TC-XXXXX`) to all created entity names to guarantee uniqueness and traceability (e.g., `Resistor 10k TC-A3F8K1`)
 
 ### Locator Stability Hierarchy
 When identifying elements, you **MUST** prefer locators in this order:
@@ -185,11 +190,17 @@ When I wait until element located by `caseInsensitiveText(My Account)` appears
 
 ### Use Visual Testing for Multiple Element Verification
 
-**MANDATORY RULE**: When verifying 3 or more elements on a page (text labels, buttons, fields, etc.), you **MUST** use visual baseline testing instead of individual element checks.
+**MANDATORY RULE**: When verifying **2 or more** elements on a page (text labels, buttons, fields, tab names, list items, etc.), you **MUST** use visual baseline testing instead of individual element checks. **Never write more than 1 individual `Then text` or `Then number of elements` assertion in a row.**
 
 **Why**: Visual testing is more efficient, catches unexpected UI changes, and verifies element states (enabled/disabled, selected, etc.) that individual text checks cannot capture.
 
-❌ **Bad** - verifying each element individually:
+❌ **Bad** - verifying each element individually (even just 2):
+```gherkin
+Then text `Back to Home` exists
+Then text `Add Account` exists
+```
+
+❌ **Bad** - verifying 3+ elements individually:
 ```gherkin
 Then text `Back to Home` exists
 Then text `Add Account` exists
@@ -204,9 +215,10 @@ When I establish baseline with name `my-add-account-page`
 ```
 
 **When to use visual testing**:
-- ✅ Verifying page layout, structure, elements and their states (3+ elements)
-- ❌ Single element verification after an action
-- ❌ Dynamic content that changes frequently
+- ✅ Verifying 2 or more elements on the page (text labels, tabs, list rows, form fields, buttons)
+- ✅ Verifying page layout, structure, and element states (enabled/disabled, selected, etc.)
+- ❌ Single element verification after a navigation or action (use `When I wait until element ... appears` instead)
+- ❌ Dynamic content that changes on every run (timestamps, generated IDs)
 
 ### Prefer buttonName Locator for Buttons
 
