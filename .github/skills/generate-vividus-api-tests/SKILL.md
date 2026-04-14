@@ -156,6 +156,28 @@ Meta:
 3. **Validation** — verify status code, response body, key fields
 4. **Cleanup** — delete created resources if needed
 
+### Deactivate Before Delete
+
+Some entities enforce an **active-flag constraint** — the API rejects `DELETE` requests on active records. Before deleting such an entity during cleanup or in a DELETE test scenario, check the OpenAPI schema for an `active` field (boolean). If present, issue a `PATCH` to set `"active": false` before the `DELETE` request:
+
+```gherkin
+!-- Deactivate before delete (API rejects deletion of active entities)
+When I add request headers:
+|name         |value           |
+|Authorization|Token ${token}  |
+|Content-Type |application/json|
+Given request body: {"active": false}
+When I execute HTTP PATCH request for resource with URL `${main-page-url}api/resource/${resourceId}/`
+Then response code is equal to `200`
+When I add request headers:
+|name         |value           |
+|Authorization|Token ${token}  |
+When I execute HTTP DELETE request for resource with URL `${main-page-url}api/resource/${resourceId}/`
+Then response code is equal to `204`
+```
+
+**When to apply:** inspect the entity's schema in `api.yaml` — if the schema has an `active` property with `type: boolean`, always deactivate before delete. Common examples: `Part`, `Company`, `SupplierPart`, `ManufacturerPart`. Entities without an `active` field (e.g., `Address`, `Contact`, `PartRelation`, price breaks) can be deleted directly.
+
 ### Header Scoping
 
 `When I set request headers:` and `When I add request headers:` apply to the **next HTTP request only**. Repeat the full header table before **each** HTTP request in a scenario.
