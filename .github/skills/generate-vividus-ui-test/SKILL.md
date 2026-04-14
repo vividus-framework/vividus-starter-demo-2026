@@ -1,11 +1,11 @@
 ---
-agent: 'agent'
-description: 'Generate VIVIDUS test automation stories from test cases for web applications. It enables the conversion of input test cases into executable .story files following VIVIDUS syntax and project conventions.'
-model: 'Claude Sonnet 4.5'
+name: generate-vividus-ui-test
+description: 'Generate VIVIDUS test automation stories from test cases for web applications. Creates executable .story files following VIVIDUS syntax and project conventions. Use when: converting manual test cases to automated VIVIDUS stories, creating UI test automation from test specifications.'
 argument-hint: 'Enter your test case...'
+allowed-tools: shell
 ---
 
-## Process Overview
+# Process Overview
 
 1. **Retrieve** test cases to automate
 2. **Execute** test cases with Playwright
