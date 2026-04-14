@@ -46,3 +46,9 @@ Uses the **generate-vividus-ui-test** skill + VIVIDUS MCP server + Playwright MC
 4. Review the generated story and summary, then move the `.story` file to `src/main/resources/story/web_app/`
 5. Run tests: `./gradlew dS -Pvividus.configuration-set.active=web-demo -Pvividus.variables.username=<USERNAME> -Pvividus.variables.password=<PASSWORD>`
 6. View report: open `output/reports/allure/index.html` in a browser
+
+## Converting Requirements to Test Cases
+
+Requirements conversion into structured test cases is handled by the [generate-test-cases prompt](.github/prompts/generate-test-cases.prompt.md). It scrapes the InvenTree documentation via Playwright MCP, compares pages against `test-cases/root.json` metadata (staleness check), and generates or updates test case files under `test-cases/`.
+
+To run: open Copilot Chat in Agent mode and use the `generate-test-cases` prompt, optionally specifying a target functionality (e.g. `Part Views - Stock`).
