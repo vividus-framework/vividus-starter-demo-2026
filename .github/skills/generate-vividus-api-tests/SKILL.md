@@ -127,13 +127,17 @@ Before choosing steps, plan the test flow:
 
 **Output**: `src/main/resources/story/rest_api/generated/[method]-[resource]-[status].story`
 
-`[resource]` = last meaningful path segment, excluding path parameters (`{id}`, `{orderId}`, etc.):
+`[resource]` = full path after `/api/`, with path parameters (`{id}`, `{orderId}`, etc.) removed, trailing/leading slashes stripped, and remaining `/` replaced with `-`:
 
 | Path | Resource | Filename example |
 |---|---|---|
-| `/store/inventory` | `inventory` | `get-inventory-200.story` |
-| `/store/order/{orderId}` | `order` | `post-order-201.story` |
-| `/pet/{petId}/uploadImage` | `uploadImage` | `post-uploadImage-200.story` |
+| `/api/store/inventory` | `store-inventory` | `get-store-inventory-200.story` |
+| `/api/store/order/{orderId}` | `store-order` | `post-store-order-201.story` |
+| `/api/pet/{petId}/uploadImage` | `pet-uploadImage` | `post-pet-uploadImage-200.story` |
+| `/api/parameter/` | `parameter` | `get-parameter-200.story` |
+| `/api/parameter/{id}/` | `parameter` | `get-parameter-200.story` |
+| `/api/parameter/template/` | `parameter-template` | `get-parameter-template-200.story` |
+| `/api/parameter/template/{id}/` | `parameter-template` | `delete-parameter-template-204.story` |
 
 ### Meta Tags
 
