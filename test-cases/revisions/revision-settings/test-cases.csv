@@ -1,0 +1,10 @@
+id;name;source;type;tags;steps
+TC-09G46M;Assembly Revision Only setting restricts revisions to Assembly parts only;https://docs.inventree.org/en/latest/part/revision/#revision-settings;configuration;revisions,revision-settings,assembly;"Given the 'Part Revisions' global setting is enabled and 'Assembly Revision Only' is set to True
+Given a part 'Resistor 10k' exists and is not marked as Assembly
+Given a user with part edit permission is logged in
+When the user attempts to set a revision code on 'Resistor 10k' via the part edit form
+Then the system prevents setting a revision on 'Resistor 10k' because it is not an Assembly part"
+TC-K0FENF;Revision field is hidden on all parts when Part Revisions setting is disabled;https://docs.inventree.org/en/latest/part/revision/#revision-settings;configuration;revisions,revision-settings;"Given the 'Part Revisions' global setting is disabled
+Given a user is logged in and on any part detail page
+When the user views the part details
+Then the 'Revision' field and 'Revision Of' field are not displayed on the part details panel"

@@ -1,0 +1,15 @@
+id;name;source;type;tags;steps
+TC-ESF6VT;Add a test template to a Testable part;https://docs.inventree.org/en/latest/part/views/#test-templates;positive;part-views,test-templates,testable;"Given a part 'Sensor Module' is marked as 'Testable'
+Given a user with part edit permission is logged in and on the 'Test Templates' tab of 'Sensor Module'
+When the user clicks the 'Add Test Template' button
+When the user enters 'Voltage Output Test' in the 'Test Name' field and checks the 'Required' checkbox
+When the user clicks 'Submit'
+Then the test templates table displays 'Voltage Output Test' as a required test template for 'Sensor Module'"
+TC-4ZJDHL;Test Templates tab is hidden for a non-Testable part;https://docs.inventree.org/en/latest/part/views/#test-templates;negative;part-views,test-templates,testable;"Given a part 'Bulk Wire 10m' is not marked as 'Testable'
+Given a user is logged in
+When the user navigates to the part detail page for 'Bulk Wire 10m'
+Then the 'Test Templates' tab is not visible in the tab bar"
+TC-VOWN0C;Test Templates tab is visible only for Testable parts;https://docs.inventree.org/en/latest/part/views/#test-templates;positive;part-views,test-templates,testable;"Given a part 'Sensor Module' is marked as 'Testable' and has two test templates: 'Power-on Test' and 'Calibration Check'
+Given a user is logged in
+When the user navigates to the part detail page for 'Sensor Module' and clicks the 'Test Templates' tab
+Then the test templates table displays 'Power-on Test' and 'Calibration Check'"

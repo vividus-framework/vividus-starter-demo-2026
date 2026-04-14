@@ -1,0 +1,9 @@
+id;name;source;type;tags;steps
+TC-2M526L;Part details panel shows all defined fields including IPN, name, description, revision, keywords, external link, and units;https://docs.inventree.org/en/latest/part/views/#part-details;positive;part-views,part-details;"Given a part exists with IPN 'IC-555-DIP8', name 'Timer IC 555', description 'Classic 555 timer', revision 'B', keywords 'timer ic oscillator', external link 'https://example.com/datasheet', and unit 'pcs'
+Given a user is logged in and on the part detail page for 'Timer IC 555'
+When the user clicks the 'Show Part Details' toggle button
+Then the details panel displays IPN 'IC-555-DIP8', name 'Timer IC 555', description 'Classic 555 timer', revision 'B', keywords 'timer ic oscillator', external link 'https://example.com/datasheet', and units 'pcs'"
+TC-GRNX7C;Part details are visible when Show Part Details toggle is enabled;https://docs.inventree.org/en/latest/part/views/#part-details;positive;part-views,part-details;"Given a part 'Capacitor 100nF' with IPN 'CAP-100NF-0402', description 'SMD capacitor', and revision 'A' exists
+Given a user is logged in and on the part detail page for 'Capacitor 100nF'
+When the user clicks the 'Show Part Details' toggle button in the header panel
+Then the header panel expands to show the IPN 'CAP-100NF-0402', description 'SMD capacitor', revision 'A', and creation date"

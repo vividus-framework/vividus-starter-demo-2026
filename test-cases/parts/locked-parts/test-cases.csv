@@ -1,0 +1,13 @@
+id;name;source;type;tags;steps
+TC-AJ2VSS;Locked assembly prevents BOM item creation;https://docs.inventree.org/en/latest/part/#locked-parts;negative;parts,locked-parts,assembly,bom;"Given a part 'Locked Assembly' is marked as both Assembly and Locked
+Given a user with part edit permission is logged in and on the 'BOM' tab of 'Locked Assembly'
+When the user attempts to add a new BOM line item by clicking 'Add BOM Item'
+Then the system prevents the action and displays an error indicating BOM items cannot be created for a locked assembly"
+TC-R3V0PU;Locked part cannot be deleted;https://docs.inventree.org/en/latest/part/#locked-parts;negative;parts,locked-parts;"Given a part 'Production Part X' is marked as Locked
+Given a user with part delete permission is logged in and on the part detail page for 'Production Part X'
+When the user attempts to delete 'Production Part X' via the part actions menu
+Then the system prevents deletion and displays an error message indicating the part is locked and cannot be deleted"
+TC-Q2HV2R;Locked part prevents parameter creation;https://docs.inventree.org/en/latest/part/#locked-parts;negative;parts,locked-parts,parameters;"Given a part 'Locked Sensor' is marked as Locked
+Given a user with part edit permission is logged in and on the 'Parameters' tab of 'Locked Sensor'
+When the user attempts to add a new parameter by clicking 'Add Parameter'
+Then the system prevents the action and displays an error indicating parameters cannot be created for a locked part"

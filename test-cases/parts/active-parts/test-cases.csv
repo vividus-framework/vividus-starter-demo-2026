@@ -1,0 +1,10 @@
+id;name;source;type;tags;steps
+TC-O58I5J;Inactive part remains in the database and can be viewed;https://docs.inventree.org/en/latest/part/#active-parts;positive;parts,active-parts;"Given a part 'Obsolete Chip XYZ' is marked as Inactive
+Given a user is logged in
+When the user navigates to the part detail page for 'Obsolete Chip XYZ' via its direct URL
+Then the part detail page loads and displays 'Obsolete Chip XYZ' with an Inactive status indicator"
+TC-CRD5C2;Mark a part as Inactive removes it from active workflows;https://docs.inventree.org/en/latest/part/#active-parts;positive;parts,active-parts;"Given an active part 'Obsolete Chip XYZ' exists
+Given a user with part edit permission is logged in and on the part detail page for 'Obsolete Chip XYZ'
+When the user edits the part and unchecks the 'Active' checkbox
+When the user clicks 'Submit'
+Then the part detail page for 'Obsolete Chip XYZ' shows the part as Inactive and the part is excluded from active part searches and workflows"

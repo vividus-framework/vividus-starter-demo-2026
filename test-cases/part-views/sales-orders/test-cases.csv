@@ -1,0 +1,5 @@
+id;name;source;type;tags;steps
+TC-9RKFCF;Sales Orders tab shows sales orders with customer, status, and dates;https://docs.inventree.org/en/latest/part/views/#sales-orders;positive;part-views,sales-orders,salable;"Given a part 'Finished PCB' is marked as 'Salable' and is referenced in sales order 'SO-2026-005' for customer 'Acme Corp' with status 'Pending'
+Given a user is logged in
+When the user navigates to the part detail page for 'Finished PCB' and clicks the 'Sales Orders' tab
+Then the sales orders table displays 'SO-2026-005' with customer 'Acme Corp' and status 'Pending'"

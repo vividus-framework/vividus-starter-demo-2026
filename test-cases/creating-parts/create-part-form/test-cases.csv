@@ -1,0 +1,12 @@
+id;name;source;type;tags;steps
+TC-A3F8K1;"Create a new part using the Create Part form with all required fields";https://docs.inventree.org/en/latest/part/create/#create-part-form;positive;creating-parts,create-part-form;"Given a user with 'create' permission for the Part permission group is logged in and on the Parts view
+When the user clicks the 'Add Parts' dropdown menu and selects 'Create Part'
+When the user enters 'Resistor 10k' in the 'Part Name' field
+When the user enters 'Standard 10kΩ resistor 0402' in the 'Description' field
+When the user clicks 'Submit'
+Then the browser navigates to the new part detail page displaying 'Resistor 10k' as the part name"
+TC-D6N2R7;"Submit Create Part form with missing required Name field shows validation error";https://docs.inventree.org/en/latest/part/create/#create-part-form;negative;creating-parts,create-part-form,validation;"Given a user with 'create' permission for the Part permission group is logged in and on the Parts view
+When the user clicks the 'Add Parts' dropdown menu and selects 'Create Part'
+When the user leaves the 'Part Name' field empty
+When the user clicks 'Submit'
+Then the form displays a validation error for the 'Part Name' field and the part is not created"

@@ -1,0 +1,10 @@
+id;name;source;type;tags;steps
+TC-U9Q1X6;"Import a supplier part for an existing part via the Suppliers panel";https://docs.inventree.org/en/latest/part/create/#import-a-supplier-part;positive;creating-parts,import-from-supplier,supplier-parts;"Given a supplier mixin plugin is installed, enabled, and configured with the supplier company and API token
+Given a user with 'create' permission is logged in
+Given a part marked as 'Purchaseable' exists in the system with IPN 'RES-10K-0402'
+When the user navigates to the part detail page for 'RES-10K-0402'
+When the user clicks the 'Suppliers' tab
+When the user clicks the 'Import supplier part' button
+When the user follows the wizard to select the supplier part to import
+When the user clicks 'Submit'
+Then the Suppliers tab displays the newly imported supplier part linked to 'RES-10K-0402'"

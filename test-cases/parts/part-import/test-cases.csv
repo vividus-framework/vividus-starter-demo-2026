@@ -1,0 +1,9 @@
+id;name;source;type;tags;steps
+TC-KM8Q9A;Part import option is not available when feature is disabled in part settings;https://docs.inventree.org/en/latest/part/#part-import;negative;parts,part-import,settings;"Given the part import feature is disabled in part settings
+Given a staff user is logged in and on the part list view
+When the staff user inspects the action buttons above the parts table
+Then the part import option is not visible"
+TC-M7SO6L;Staff member can import parts using the part list view wizard;https://docs.inventree.org/en/latest/part/#part-import;positive;parts,part-import,permissions;"Given the part import feature is enabled in part settings
+Given a staff user is logged in and on the part list view
+When the staff user locates the import option above the parts table and clicks it
+Then the multi-stage data import wizard opens allowing field mapping from a spreadsheet or table-data format"

@@ -1,0 +1,17 @@
+id;name;source;type;tags;steps
+TC-YW5MTE;Part category list can be filtered to narrow down results;https://docs.inventree.org/en/latest/part/#part-category;positive;parts,part-category,filtering;"Given a category 'Passive' contains 50 parts including 'Resistor 10k', 'Capacitor 100nF', and 'Inductor 10uH'
+Given a user is logged in and on the 'Passive' category page
+When the user applies a filter for parts matching 'Resistor'
+Then the parts list displays only parts containing 'Resistor' in their name and the count of displayed parts is less than 50"
+TC-O4ATHL;Part category displays parts from the category and all sub-categories;https://docs.inventree.org/en/latest/part/#part-category;positive;parts,part-category,hierarchy;"Given a category 'Electronics' contains a direct part 'Op-Amp IC' and a sub-category 'Passive' which contains part 'Capacitor 100nF'
+Given a user is logged in
+When the user navigates to the 'Electronics' category page
+Then the parts list shows both 'Op-Amp IC' and 'Capacitor 100nF' including parts from all sub-categories"
+TC-JIVR5Z;Part category list shows sub-categories underneath the current category;https://docs.inventree.org/en/latest/part/#part-category;positive;parts,part-category,hierarchy;"Given a category 'Electronics' has sub-categories 'Passive', 'Active', and 'Connectors'
+Given a user is logged in
+When the user navigates to the 'Electronics' category page
+Then the category page lists 'Passive', 'Active', and 'Connectors' as sub-categories"
+TC-6XVA20;Clicking a part name in the category list navigates to the Part Detail view;https://docs.inventree.org/en/latest/part/#part-category;positive;parts,part-category;"Given a category 'Passive' contains a part 'Resistor 10k'
+Given a user is logged in and on the 'Passive' category page
+When the user clicks on the part name 'Resistor 10k' in the category parts list
+Then the browser navigates to the Part Detail view for 'Resistor 10k'"

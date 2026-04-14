@@ -1,0 +1,9 @@
+id;name;source;type;tags;steps
+TC-6ZK9OM;Create a new revision via the Duplicate Part action;https://docs.inventree.org/en/latest/part/revision/#create-a-revision;positive;revisions,create-a-revision;"Given a part 'PCB Assembly' exists with revision code 'A'
+Given the 'Part Revisions' global setting is enabled
+Given a user with part create permission is logged in and on the part detail page for 'PCB Assembly'
+When the user clicks the part actions menu (three vertical dots on the top right)
+When the user selects 'Duplicate Part'
+When the user sets the 'Revision Of' field to 'PCB Assembly' and the 'Revision' field to 'B'
+When the user clicks 'Submit'
+Then the browser redirects to the new part revision showing 'Revision: B' and 'Revision Of: PCB Assembly'"

@@ -1,0 +1,5 @@
+id;name;source;type;tags;steps
+TC-LGF0BS;Purchase Orders tab is visible only for Purchaseable parts;https://docs.inventree.org/en/latest/part/views/#purchase-orders;positive;part-views,purchase-orders,purchaseable;"Given a part 'Resistor 10k' is marked as 'Purchaseable' and is referenced in purchase order 'PO-2026-001'
+Given a user is logged in
+When the user navigates to the part detail page for 'Resistor 10k' and clicks the 'Purchase Orders' tab
+Then the purchase orders table displays 'PO-2026-001'"

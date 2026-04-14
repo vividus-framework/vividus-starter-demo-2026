@@ -1,0 +1,17 @@
+id;name;source;type;tags;steps
+TC-6DTHCS;Delete a part image removes it from the part;https://docs.inventree.org/en/latest/part/#uploading-part-image;positive;parts,part-images;"Given a part 'LED Red 3mm' has an associated image 'led-red.png'
+Given a user with part edit permission is logged in and on the part detail page for 'LED Red 3mm'
+When the user hovers over the part image and clicks 'Delete image'
+When the user confirms the deletion
+Then the part detail page for 'LED Red 3mm' shows the default image placeholder with no image associated"
+TC-GRQAQM;Select an existing image from the database for a part;https://docs.inventree.org/en/latest/part/#uploading-part-image;positive;parts,part-images;"Given at least one part image already exists in the database
+Given a part 'Capacitor 100nF' exists with no part image
+Given a user with part edit permission is logged in and on the part detail page for 'Capacitor 100nF'
+When the user hovers over the part image placeholder and clicks 'Select from existing images'
+When the user selects an existing image from the displayed list
+Then the part detail page for 'Capacitor 100nF' displays the selected existing image as the part image"
+TC-JTVU3W;Upload a new image for a part via the web interface;https://docs.inventree.org/en/latest/part/#uploading-part-image;positive;parts,part-images;"Given a part 'Resistor 10k' exists with no part image
+Given a user with part edit permission is logged in and on the part detail page for 'Resistor 10k'
+When the user hovers over the part image placeholder to reveal the image action buttons
+When the user clicks 'Upload new image' and selects a local image file 'resistor.png'
+Then the part detail page displays the uploaded 'resistor.png' as the part image"

@@ -1,0 +1,9 @@
+id;name;source;type;tags;steps
+TC-DEKW7J;Variants tab is not visible for a non-Template part;https://docs.inventree.org/en/latest/part/views/#variants;negative;part-views,variants,template;"Given a part 'Resistor 10k' is not marked as a Template part
+Given a user is logged in
+When the user navigates to the part detail page for 'Resistor 10k'
+Then the 'Variants' tab is not visible in the tab bar"
+TC-TKVY2G;Variants tab is visible only for Template parts;https://docs.inventree.org/en/latest/part/views/#variants;positive;part-views,variants,template;"Given a part 'Widget Base' is marked as a Template part and has two variants 'Widget-Red' and 'Widget-Blue'
+Given a user is logged in
+When the user navigates to the part detail page for 'Widget Base'
+Then the 'Variants' tab is visible and displays 'Widget-Red' and 'Widget-Blue' in the variants list"

@@ -1,0 +1,10 @@
+id;name;source;type;tags;steps
+TC-XNI8V2;Part with blank unit of measure is tracked in dimensionless pieces;https://docs.inventree.org/en/latest/part/#units-of-measure;positive;parts,units-of-measure;"Given a newly created part 'Generic Component' with the Units field left blank
+Given a user is logged in and on the part detail page for 'Generic Component'
+When the user views the part details
+Then the part shows the default unit as 'pcs' (dimensionless quantity)"
+TC-EKIZ69;Set a custom unit of measure for a part;https://docs.inventree.org/en/latest/part/#units-of-measure;positive;parts,units-of-measure,configuration;"Given a part 'Copper Wire' exists with the default unit of measure (blank/pieces)
+Given a user with part edit permission is logged in and on the part detail page for 'Copper Wire'
+When the user edits the part and enters 'm' in the 'Units' field
+When the user clicks 'Submit'
+Then the part detail page for 'Copper Wire' displays 'Units: m' in the part details"

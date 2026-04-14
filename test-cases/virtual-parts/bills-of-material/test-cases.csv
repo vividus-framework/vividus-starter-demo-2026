@@ -1,0 +1,7 @@
+id;name;source;type;tags;steps
+TC-XIGRF8;Virtual part can be added as a BOM sub-component in an assembly;https://docs.inventree.org/en/latest/part/virtual/#bills-of-material;positive;virtual-parts,bills-of-material,assembly;"Given a part 'Labor Hour' is marked as Virtual
+Given a part 'PCB Assembly' is marked as Assembly and has an editable BOM
+Given a user with part edit permission is logged in and on the BOM tab of 'PCB Assembly'
+When the user clicks 'Add BOM Item' and selects 'Labor Hour' as the sub-component with quantity 2
+When the user clicks 'Submit'
+Then the BOM for 'PCB Assembly' displays 'Labor Hour' as a sub-component with quantity 2"

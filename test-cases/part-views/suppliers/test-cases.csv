@@ -1,0 +1,9 @@
+id;name;source;type;tags;steps
+TC-XQRYNU;Suppliers tab is hidden for a non-Purchaseable part;https://docs.inventree.org/en/latest/part/views/#suppliers;negative;part-views,suppliers,purchaseable;"Given a part 'In-House PCB' is not marked as 'Purchaseable'
+Given a user is logged in
+When the user navigates to the part detail page for 'In-House PCB'
+Then the 'Suppliers' tab is not visible in the tab bar"
+TC-ET7IFI;Suppliers tab is visible only for Purchaseable parts;https://docs.inventree.org/en/latest/part/views/#suppliers;positive;part-views,suppliers,purchaseable;"Given a part 'Resistor 10k' is marked as 'Purchaseable' and has one linked supplier part
+Given a user is logged in
+When the user navigates to the part detail page for 'Resistor 10k'
+Then the 'Suppliers' tab is visible and displays the linked supplier part"

@@ -1,0 +1,11 @@
+id;name;source;type;tags;steps
+TC-Y3TYNY;Supplier part unit compatible with base part unit is accepted;https://docs.inventree.org/en/latest/part/#supplier-part-units;positive;parts,units-of-measure,supplier-parts;"Given a part 'Copper Wire' has unit of measure 'm' (metres)
+Given a user with part edit permission is logged in
+When the user adds a supplier part for 'Copper Wire' and sets the supplier unit to 'ft' (feet)
+When the user clicks 'Submit'
+Then the supplier part is created with unit 'ft' and the system accepts it as compatible with 'm'"
+TC-HQDCZM;Supplier part unit incompatible with base part unit shows an error;https://docs.inventree.org/en/latest/part/#supplier-part-units;negative;parts,units-of-measure,supplier-parts,validation;"Given a part 'Copper Wire' has unit of measure 'm' (metres)
+Given a user with part edit permission is logged in
+When the user adds a supplier part for 'Copper Wire' and sets the supplier unit to 'kg' (kilograms, incompatible with metres)
+When the user clicks 'Submit'
+Then the system displays an error indicating the supplier unit 'kg' is incompatible with the base unit 'm'"

@@ -1,0 +1,17 @@
+id;name;source;type;tags;steps
+TC-K7M2P9;"Create part with initial stock by checking the Create Initial Stock checkbox";https://docs.inventree.org/en/latest/part/create/#initial-stock;positive;creating-parts,initial-stock;"Given the 'Create Initial Stock' global setting is enabled
+Given a user with 'create' permission for the Part permission group is logged in and on the Parts view
+When the user clicks the 'Add Parts' dropdown menu and selects 'Create Part'
+When the user enters 'Capacitor 100nF' in the 'Part Name' field
+When the user checks the 'Create Initial Stock' checkbox in the Initial Stock section
+When the user enters '50' in the initial stock quantity field
+When the user clicks 'Submit'
+Then the part 'Capacitor 100nF' is created and the Stock tab shows a stock item with quantity 50"
+TC-X4R1N6;"Create Initial Stock section is hidden when Create Initial Stock setting is disabled";https://docs.inventree.org/en/latest/part/create/#initial-stock;configuration;creating-parts,initial-stock,settings;"Given the 'Create Initial Stock' global setting is disabled
+Given a user with 'create' permission for the Part permission group is logged in and on the Parts view
+When the user clicks the 'Add Parts' dropdown menu and selects 'Create Part'
+Then the part creation form does not display an 'Initial Stock' section"
+TC-Q8W3J5;"Create Initial Stock section is visible when Create Initial Stock setting is enabled";https://docs.inventree.org/en/latest/part/create/#initial-stock;configuration;creating-parts,initial-stock,settings;"Given the 'Create Initial Stock' global setting is enabled
+Given a user with 'create' permission for the Part permission group is logged in and on the Parts view
+When the user clicks the 'Add Parts' dropdown menu and selects 'Create Part'
+Then the part creation form displays an 'Initial Stock' section with a 'Create Initial Stock' checkbox"

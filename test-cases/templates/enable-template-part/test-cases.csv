@@ -1,0 +1,10 @@
+id;name;source;type;tags;steps
+TC-D76CAU;Disable Template option on a part removes the Variants tab;https://docs.inventree.org/en/latest/part/template/#enable-template-part;positive;templates,enable-template-part;"Given a part 'Widget Base' is marked as a Template part and has no existing variants
+Given a user with part edit permission is logged in and on the part detail page for 'Widget Base'
+When the user clicks the 'Details' tab and toggles the 'Template' option to off (slider to the left, grey)
+Then the part detail page for 'Widget Base' shows the 'Template' attribute as disabled and the 'Variants' tab is no longer visible"
+TC-Z02TN5;Enable Template option on a part via the Details tab;https://docs.inventree.org/en/latest/part/template/#enable-template-part;positive;templates,enable-template-part;"Given a part 'Widget Base' is not currently marked as a Template part
+Given a user with part edit permission is logged in and on the part detail page for 'Widget Base'
+When the user clicks the 'Details' tab
+When the user locates the part options on the right-hand side and toggles the 'Template' option so it shows green (slider to the right)
+Then the part detail page for 'Widget Base' shows the 'Template' attribute as enabled and the 'Variants' tab becomes visible"

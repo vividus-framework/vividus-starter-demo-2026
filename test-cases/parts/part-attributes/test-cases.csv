@@ -1,0 +1,26 @@
+id;name;source;type;tags;steps
+TC-BWTL97;Mark a part as Assembly enables BOM tab;https://docs.inventree.org/en/latest/part/#assembly;positive;parts,part-attributes,assembly;"Given a part 'Controller Board' exists and is not currently marked as Assembly
+Given a user with part edit permission is logged in and on the part detail page for 'Controller Board'
+When the user edits the part and checks the 'Assembly' checkbox
+When the user clicks 'Submit'
+Then the part detail page for 'Controller Board' displays the 'BOM' tab"
+TC-AZ3RM9;Mark a part as Component makes it available in Used In and Allocated tabs;https://docs.inventree.org/en/latest/part/#component;positive;parts,part-attributes,component;"Given a part 'Resistor 10k' exists and is not currently marked as Component
+Given a user with part edit permission is logged in and on the part detail page for 'Resistor 10k'
+When the user edits the part and checks the 'Component' checkbox
+When the user clicks 'Submit'
+Then the part detail page for 'Resistor 10k' displays both the 'Used In' tab and the 'Allocated' tab"
+TC-HRBEIE;Mark a part as Purchaseable enables Suppliers and Purchase Orders tabs;https://docs.inventree.org/en/latest/part/#purchaseable;positive;parts,part-attributes,purchaseable;"Given a part 'IC Regulator LM7805' exists and is not currently marked as Purchaseable
+Given a user with part edit permission is logged in and on the part detail page for 'IC Regulator LM7805'
+When the user edits the part and checks the 'Purchaseable' checkbox
+When the user clicks 'Submit'
+Then the part detail page for 'IC Regulator LM7805' displays the 'Suppliers' tab and the 'Purchase Orders' tab"
+TC-0T2IOR;Mark a part as Salable makes it available on sales orders;https://docs.inventree.org/en/latest/part/#salable;positive;parts,part-attributes,salable;"Given a part 'Finished Product A' exists and is not currently marked as Salable
+Given a user with part edit permission is logged in and on the part detail page for 'Finished Product A'
+When the user edits the part and checks the 'Salable' checkbox
+When the user clicks 'Submit'
+Then the part 'Finished Product A' can be added to a sales order line item and the 'Sales Orders' tab is visible on the part detail page"
+TC-X3TMEQ;Mark a part as Virtual;https://docs.inventree.org/en/latest/part/#virtual;positive;parts,part-attributes,virtual;"Given a part 'Labor Cost' exists and is not currently marked as Virtual
+Given a user with part edit permission is logged in and on the part detail page for 'Labor Cost'
+When the user edits the part and checks the 'Virtual' checkbox
+When the user clicks 'Submit'
+Then the part detail page for 'Labor Cost' shows the 'Virtual' attribute as enabled and the Stock tab is hidden"

@@ -1,0 +1,18 @@
+id;name;source;type;tags;steps
+TC-EHYUBX;Create a variant from a Template part via the Variants tab;https://docs.inventree.org/en/latest/part/template/#create-variant;positive;templates,create-variant;"Given a part 'Widget Base' is marked as a Template part
+Given a user with part create permission is logged in and on the part detail page for 'Widget Base'
+When the user clicks the 'Variants' tab
+When the user clicks the 'New Variant' button
+When the user fills in the Duplicate Part form entering 'Widget-Red' in the 'Part Name' field
+When the user clicks 'Submit'
+Then the Variants tab for 'Widget Base' shows 'Widget-Red' as a new variant"
+TC-9A9JHC;Serial numbers must be unique across a template and all its variants;https://docs.inventree.org/en/latest/part/template/#part-templates;negative;templates,create-variant,trackable,serial-numbers;"Given a Template part 'Widget' with two trackable variants 'Widget-01' and 'Widget-02'
+Given a stock item for 'Widget-01' already has serial number 'SN-0042' assigned
+Given a user with stock create permission is logged in
+When the user creates a new stock item for 'Widget-02' and enters 'SN-0042' in the serial number field
+When the user clicks 'Submit'
+Then the system rejects the submission with an error indicating serial number 'SN-0042' is already in use across the template group"
+TC-T601J2;Stock reporting for a Template part includes stock from all variants;https://docs.inventree.org/en/latest/part/template/#part-templates;positive;templates,stock-reporting;"Given a Template part 'Widget' with variants 'Widget-Red' (30 units in stock) and 'Widget-Blue' (20 units in stock)
+Given a user is logged in and on the part detail page for 'Widget'
+When the user views the Stock tab for 'Widget'
+Then the total stock count shown for 'Widget' includes all 50 units from both 'Widget-Red' and 'Widget-Blue'"

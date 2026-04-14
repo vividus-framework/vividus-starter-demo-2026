@@ -1,0 +1,26 @@
+id;name;source;type;tags;steps
+TC-VHYYHT;Assign a list of specific serial numbers using comma notation;https://docs.inventree.org/en/latest/part/trackable/#assign-serial-numbers;positive;tracking,assign-serial-numbers;"Given a part 'Sensor Module' is marked as Trackable
+Given a user with stock create permission is logged in
+When the user creates a new stock item for 'Sensor Module' with quantity 3 and enters '1,3,5' in the serial number field
+When the user clicks 'Submit'
+Then the Stock tab for 'Sensor Module' shows 3 stock items with serial numbers 1, 3, and 5"
+TC-1LN3YZ;Assign serial numbers using tilde notation for next available serial number;https://docs.inventree.org/en/latest/part/trackable/#assign-serial-numbers;positive;tracking,assign-serial-numbers,serial-next;"Given a part 'Sensor Module' is marked as Trackable and the next available serial number is 8
+Given a user with stock create permission is logged in
+When the user creates a new stock item for 'Sensor Module' and enters '~' in the serial number field
+When the user clicks 'Submit'
+Then the Stock tab for 'Sensor Module' shows a new stock item with serial number 8"
+TC-B1PMZB;Assign a range of serial numbers using dash notation;https://docs.inventree.org/en/latest/part/trackable/#assign-serial-numbers;positive;tracking,assign-serial-numbers,serial-range;"Given a part 'Sensor Module' is marked as Trackable
+Given a user with stock create permission is logged in
+When the user creates a new stock item for 'Sensor Module' with quantity 5 and enters '1-5' in the serial number field
+When the user clicks 'Submit'
+Then the Stock tab for 'Sensor Module' shows 5 individual stock items with serial numbers 1, 2, 3, 4, and 5"
+TC-LVHENP;Assign serial numbers using start-plus notation for consecutive range;https://docs.inventree.org/en/latest/part/trackable/#assign-serial-numbers;positive;tracking,assign-serial-numbers,serial-range;"Given a part 'Sensor Module' is marked as Trackable
+Given a user with stock create permission is logged in
+When the user creates a new stock item for 'Sensor Module' with quantity 3 and enters '4+' in the serial number field (with 3 numbers needed)
+When the user clicks 'Submit'
+Then the Stock tab for 'Sensor Module' shows 3 stock items with serial numbers 4, 5, and 6"
+TC-1SF2G9;Assign a single serial number to a trackable stock item;https://docs.inventree.org/en/latest/part/trackable/#assign-serial-numbers;positive;tracking,assign-serial-numbers;"Given a part 'Sensor Module' is marked as Trackable
+Given a user with stock create permission is logged in
+When the user creates a new stock item for 'Sensor Module' and enters '42' in the serial number field
+When the user clicks 'Submit'
+Then the Stock tab for 'Sensor Module' shows a stock item with serial number '42'"

@@ -1,0 +1,12 @@
+id;name;source;type;tags;steps
+TC-KLSFUE;Virtual part can be added to a Sales Order;https://docs.inventree.org/en/latest/part/virtual/#sales-orders;positive;virtual-parts,sales-orders,salable;"Given a part 'Support Service' is marked as Virtual and Salable
+Given a Sales Order 'SO-2026-010' exists for customer 'Acme Corp'
+Given a user with sales order edit permission is logged in and on the line items tab of 'SO-2026-010'
+When the user adds a line item and selects 'Support Service' as the part with quantity 1
+When the user clicks 'Submit'
+Then the sales order 'SO-2026-010' displays 'Support Service' as a line item with quantity 1"
+TC-CMYAWB;Virtual parts are not allocated from stock during sales order fulfillment;https://docs.inventree.org/en/latest/part/virtual/#sales-orders;positive;virtual-parts,sales-orders;"Given a part 'Support Service' is marked as Virtual and Salable
+Given a Sales Order 'SO-2026-010' contains a line item for 'Support Service' with quantity 1
+Given a user with sales order edit permission is logged in
+When the user completes the fulfillment process for 'SO-2026-010'
+Then 'Support Service' is fulfilled without requiring any stock allocation and no stock deduction is recorded"

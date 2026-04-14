@@ -1,0 +1,5 @@
+id;name;source;type;tags;steps
+TC-YV6W8V;Category breadcrumb navigation reflects the part's category hierarchy;https://docs.inventree.org/en/latest/part/views/#category-breadcrumb-list;positive;part-views,category-breadcrumb;"Given a part 'Resistor 10k' exists in the category hierarchy 'Electronics > Passive > Resistors'
+Given a user is logged in
+When the user navigates to the part detail page for 'Resistor 10k'
+Then the top navigation bar displays the breadcrumb 'Electronics > Passive > Resistors' reflecting the full category path"

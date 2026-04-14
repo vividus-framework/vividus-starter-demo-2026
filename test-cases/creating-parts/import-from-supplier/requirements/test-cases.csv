@@ -1,0 +1,5 @@
+id;name;source;type;tags;steps
+TC-F3W7N4;"Import from Supplier fails without a configured supplier plugin";https://docs.inventree.org/en/latest/part/create/#requirements;negative;creating-parts,import-from-supplier,plugins;"Given no supplier mixin plugin is installed or enabled in the system
+Given a user with 'create' permission for the Part permission group is logged in
+When the user navigates to the Part Category view
+Then the 'Import Part' button from supplier is not available or displays an error indicating a plugin is required"

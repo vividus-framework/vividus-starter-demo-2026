@@ -1,0 +1,5 @@
+id;name;source;type;tags;steps
+TC-8D96C9;Virtual part cannot have stock items created for it;https://docs.inventree.org/en/latest/part/virtual/#stock-items;negative;virtual-parts,stock-items;"Given a part 'Labor Hour' is marked as Virtual
+Given a user with stock create permission is logged in and on the part detail page for 'Labor Hour'
+When the user inspects the part tabs
+Then the 'Stock' tab and 'New Stock Item' action are not visible on the part detail page"

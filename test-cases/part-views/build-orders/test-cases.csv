@@ -1,0 +1,5 @@
+id;name;source;type;tags;steps
+TC-F9CZEK;Build Orders tab shows quantity, status, and creation dates for builds;https://docs.inventree.org/en/latest/part/views/#build-orders;positive;part-views,build-orders;"Given a part 'PCB Assembly' has two build orders: 'BO-001' with status 'Production' for quantity 10 and 'BO-002' with status 'Complete' for quantity 5
+Given a user is logged in
+When the user navigates to the part detail page for 'PCB Assembly' and clicks the 'Build Orders' tab
+Then the build orders table displays 'BO-001' with status 'Production' and quantity 10, and 'BO-002' with status 'Complete' and quantity 5"

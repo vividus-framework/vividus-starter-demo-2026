@@ -1,0 +1,80 @@
+{
+  "name": "Parts",
+  "url": "https://docs.inventree.org/en/latest/part/",
+  "description": "InvenTree Parts documentation - functionality tree roots for partial test case generation",
+  "leaves": [
+    {
+      "name": "Parts",
+      "url": "https://docs.inventree.org/en/latest/part/",
+      "lastChanged": "2026-04-09",
+      "folder": "parts"
+    },
+    {
+      "name": "Creating Parts",
+      "url": "https://docs.inventree.org/en/latest/part/create/",
+      "lastChanged": "2026-04-09",
+      "excludes": [
+        {
+          "name": "Other Part Creation Methods",
+          "anchor": "#other-part-creation-methods",
+          "reason": "Non-UI creation methods (REST API, Python library, Admin interface) are out of scope for web UI test cases"
+        }
+      ],
+      "folder": "creating-parts"
+    },
+    {
+      "name": "Virtual Parts",
+      "url": "https://docs.inventree.org/en/latest/part/virtual/",
+      "lastChanged": "2026-04-05",
+      "folder": "virtual-parts"
+    },
+    {
+      "name": "Part Views",
+      "url": "https://docs.inventree.org/en/latest/part/views/",
+      "lastChanged": "2026-04-06",
+      "folder": "part-views"
+    },
+    {
+      "name": "Tracking",
+      "url": "https://docs.inventree.org/en/latest/part/trackable/",
+      "lastChanged": "2026-04-05",
+      "folder": "tracking"
+    },
+    {
+      "name": "Revisions",
+      "url": "https://docs.inventree.org/en/latest/part/revision/",
+      "lastChanged": "2026-04-05",
+      "folder": "revisions"
+    },
+    {
+      "name": "Templates",
+      "url": "https://docs.inventree.org/en/latest/part/template/",
+      "lastChanged": "2026-04-05",
+      "folder": "templates"
+    },
+    {
+      "name": "Tests",
+      "url": "https://docs.inventree.org/en/latest/part/test/",
+      "lastChanged": "2026-04-05",
+      "folder": "tests"
+    },
+    {
+      "name": "Pricing",
+      "url": "https://docs.inventree.org/en/latest/part/pricing/",
+      "lastChanged": "2026-04-05",
+      "folder": "pricing"
+    },
+    {
+      "name": "Stocktake",
+      "url": "https://docs.inventree.org/en/latest/part/stocktake/",
+      "lastChanged": "2026-04-05",
+      "folder": "stocktake"
+    },
+    {
+      "name": "Notifications",
+      "url": "https://docs.inventree.org/en/latest/part/notification/",
+      "lastChanged": "2026-04-05",
+      "folder": "notifications"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+id;name;source;type;tags;steps
+TC-2CIYIS;Add a related part entry linking two parts;https://docs.inventree.org/en/latest/part/views/#related-parts;positive;part-views,related-parts;"Given the 'Related Parts' feature is enabled in global part settings
+Given parts 'Resistor 10k' and 'Resistor 10k 1%' exist in the system with no existing relationship
+Given a user with part edit permission is logged in and on the part detail page for 'Resistor 10k'
+When the user clicks the 'Add Related Part' button in the Related Parts table
+When the user selects 'Resistor 10k 1%' in the related part search field
+When the user clicks 'Submit'
+Then the Related Parts table on 'Resistor 10k' displays 'Resistor 10k 1%'"
+TC-FK6KKV;Related Parts table is hidden when the Related Parts feature is disabled;https://docs.inventree.org/en/latest/part/views/#related-parts;configuration;part-views,related-parts,settings;"Given the 'Related Parts' feature is disabled in global part settings
+Given a user is logged in
+When the user navigates to any part detail page
+Then the 'Related Parts' table is not visible on the part detail page"
+TC-03PSAR;Related Parts table is visible when the Related Parts feature is enabled;https://docs.inventree.org/en/latest/part/views/#related-parts;configuration;part-views,related-parts,settings;"Given the 'Related Parts' feature is enabled in global part settings
+Given a part 'Resistor 10k' has one related part 'Resistor 10k 1%'
+Given a user is logged in
+When the user navigates to the part detail page for 'Resistor 10k'
+Then the 'Related Parts' table is visible and displays 'Resistor 10k 1%'"

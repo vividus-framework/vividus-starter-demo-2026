@@ -1,0 +1,9 @@
+id;name;source;type;tags;steps
+TC-3BWYX5;BOM tab is hidden for a non-Assembly part;https://docs.inventree.org/en/latest/part/views/#bill-of-materials;negative;part-views,bill-of-materials,assembly;"Given a part 'Resistor 10k' is not marked as 'Assembly'
+Given a user is logged in
+When the user navigates to the part detail page for 'Resistor 10k'
+Then the 'BOM' tab is not visible in the tab bar"
+TC-9RUHY8;BOM tab is visible only for Assembly parts;https://docs.inventree.org/en/latest/part/views/#bill-of-materials;positive;part-views,bill-of-materials,assembly;"Given a part 'PCB Assembly' is marked as 'Assembly' and has 3 BOM line items
+Given a user is logged in
+When the user navigates to the part detail page for 'PCB Assembly'
+Then the 'BOM' tab is visible and shows a table with 3 rows of sub-component parts"

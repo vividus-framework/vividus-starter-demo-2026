@@ -1,0 +1,27 @@
+id;name;source;type;tags;steps
+TC-18J7UX;Creating a circular revision reference is rejected;https://docs.inventree.org/en/latest/part/revision/#revision-restrictions;negative;revisions,revision-restrictions,validation;"Given a part 'PCB Assembly' exists
+Given a user with part edit permission is logged in
+When the user edits 'PCB Assembly' and sets the 'Revision Of' field to 'PCB Assembly' (itself)
+When the user clicks 'Submit'
+Then the system rejects the submission with an error indicating a part cannot be a revision of itself (circular reference)"
+TC-T95IKX;Two revisions of the same part with duplicate revision codes are rejected;https://docs.inventree.org/en/latest/part/revision/#revision-restrictions;negative;revisions,revision-restrictions,validation;"Given a part 'PCB Assembly' has an existing revision with revision code 'A'
+Given a user with part create permission is logged in
+When the user creates a new part, sets 'Revision Of' to 'PCB Assembly', and sets the 'Revision' field to 'A'
+When the user clicks 'Submit'
+Then the system rejects the submission with an error indicating revision code 'A' already exists for 'PCB Assembly'"
+TC-PG3UG4;Revision of a variant must reference the same template as the original variant;https://docs.inventree.org/en/latest/part/revision/#revision-restrictions;negative;revisions,revision-restrictions,template;"Given 'Widget Template A' and 'Widget Template B' are two separate Template parts
+Given 'Widget-Red' is a variant of 'Widget Template A'
+Given a user with part create permission is logged in
+When the user creates a revision of 'Widget-Red' but changes the template reference to 'Widget Template B'
+When the user clicks 'Submit'
+Then the system rejects the submission with an error indicating the revision must reference the same template as the original part 'Widget Template A'"
+TC-8LY4HU;Template part cannot have revisions;https://docs.inventree.org/en/latest/part/revision/#revision-restrictions;negative;revisions,revision-restrictions,template;"Given a part 'Widget Template' is marked as a Template part
+Given a user with part create permission is logged in
+When the user creates a new part and sets 'Revision Of' to 'Widget Template'
+When the user clicks 'Submit'
+Then the system rejects the submission with an error indicating template parts cannot have revisions"
+TC-CIYEWH;Variant part is allowed to have revisions;https://docs.inventree.org/en/latest/part/revision/#revision-restrictions;positive;revisions,revision-restrictions,template;"Given a part 'Widget-Red' is a variant of Template part 'Widget Template'
+Given a user with part create permission is logged in
+When the user creates a new part, sets 'Revision Of' to 'Widget-Red', and sets 'Revision' to 'B'
+When the user clicks 'Submit'
+Then the revision is successfully created and the new part shows 'Revision Of: Widget-Red' and 'Revision: B'"

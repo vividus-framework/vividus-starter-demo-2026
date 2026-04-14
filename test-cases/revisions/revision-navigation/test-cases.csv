@@ -1,0 +1,13 @@
+id;name;source;type;tags;steps
+TC-1GT387;Navigate between revisions using the Select Part Revision dropdown;https://docs.inventree.org/en/latest/part/revision/#revision-navigation;positive;revisions,revision-navigation;"Given a part 'PCB Assembly' has revisions 'A' and 'B'
+Given a user is logged in and on the part detail page for the revision 'A' of 'PCB Assembly'
+When the user clicks the 'Select Part Revision' dropdown and selects revision 'B'
+Then the browser navigates to the part detail page for revision 'B' of 'PCB Assembly'"
+TC-LL69NA;Revision selector is not shown when only one revision exists;https://docs.inventree.org/en/latest/part/revision/#revision-navigation;negative;revisions,revision-navigation;"Given a part 'PCB Assembly' has only one revision 'PCB Assembly Rev A'
+Given a user is logged in and on the part detail page for 'PCB Assembly Rev A'
+When the user views the top of the part page
+Then the 'Select Part Revision' dropdown is not displayed"
+TC-NDZ774;Revision selector dropdown appears when multiple revisions exist;https://docs.inventree.org/en/latest/part/revision/#revision-navigation;positive;revisions,revision-navigation;"Given a part 'PCB Assembly' has two revisions: 'PCB Assembly Rev A' (revision 'A') and 'PCB Assembly Rev B' (revision 'B')
+Given a user is logged in and on the part detail page for 'PCB Assembly Rev A'
+When the user views the top of the part page
+Then a 'Select Part Revision' dropdown is displayed allowing navigation between revisions"

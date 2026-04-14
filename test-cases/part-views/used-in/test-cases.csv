@@ -1,0 +1,5 @@
+id;name;source;type;tags;steps
+TC-D72YW8;Used In tab is visible only for Component parts;https://docs.inventree.org/en/latest/part/views/#used-in;positive;part-views,used-in,component;"Given a part 'Resistor 10k' is marked as 'Component' and is included in the BOM of 'PCB Assembly v1' and 'PCB Assembly v2'
+Given a user is logged in
+When the user navigates to the part detail page for 'Resistor 10k' and clicks the 'Used In' tab
+Then the Used In table shows 'PCB Assembly v1' and 'PCB Assembly v2'"

@@ -1,0 +1,10 @@
+id;name;source;type;tags;steps
+TC-IM046H;Revision field and Revision Of field are present on a part;https://docs.inventree.org/en/latest/part/revision/#revision-fields;positive;revisions,revision-fields;"Given the 'Part Revisions' global setting is enabled
+Given a part 'PCB Assembly v1' exists with revision 'A' and a 'Revision Of' link pointing to 'PCB Assembly'
+Given a user is logged in and on the part detail page for 'PCB Assembly v1'
+When the user views the part details
+Then the details panel displays 'Revision: A' and 'Revision Of: PCB Assembly'"
+TC-NI0DWD;A part revision is itself a full part with its own stock, parameters, and BOM;https://docs.inventree.org/en/latest/part/revision/#revisions-are-parts;positive;revisions;"Given a part 'PCB Assembly Rev B' is a revision of 'PCB Assembly' with revision code 'B'
+Given a user is logged in
+When the user navigates to the part detail page for 'PCB Assembly Rev B'
+Then the part has its own part number, stock items, parameters, and BOM separate from 'PCB Assembly'"

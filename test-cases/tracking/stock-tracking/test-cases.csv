@@ -1,0 +1,11 @@
+id;name;source;type;tags;steps
+TC-RR5KH9;Enabling Trackable on a part changes how its stock items are handled;https://docs.inventree.org/en/latest/part/trackable/#stock-tracking;positive;tracking,stock-tracking,trackable;"Given a part 'PCB Rev A' is not marked as Trackable
+Given a user with part edit permission is logged in and on the part detail page for 'PCB Rev A'
+When the user edits the part and checks the 'Trackable' checkbox
+When the user clicks 'Submit'
+Then the part 'PCB Rev A' is now Trackable and any new stock items created for it will require a serial or batch number"
+TC-059RZH;Mark a part as Trackable requires serial or batch number on all stock items;https://docs.inventree.org/en/latest/part/trackable/#stock-tracking;positive;tracking,stock-tracking,trackable;"Given a part 'Sensor Module' is marked as Trackable
+Given a user with stock create permission is logged in
+When the user attempts to create a new stock item for 'Sensor Module' without providing a serial number or batch number
+When the user clicks 'Submit'
+Then the system rejects the submission with a validation error requiring a batch number or serial number for the trackable part"

@@ -1,0 +1,11 @@
+id;name;source;type;tags;steps
+TC-U9PYFC;Multiple file attachments can be associated with a single part;https://docs.inventree.org/en/latest/part/views/#attachments;boundary;part-views,attachments;"Given a part 'PCB Assembly' exists
+Given a user with part edit permission is logged in and on the 'Attachments' tab of 'PCB Assembly'
+When the user uploads 'schematic.pdf', 'bom.xlsx', and 'test-report.pdf' as separate attachments
+Then the Attachments tab displays all three files: 'schematic.pdf', 'bom.xlsx', and 'test-report.pdf'"
+TC-YLY7XP;Attachments tab allows uploading and viewing file attachments;https://docs.inventree.org/en/latest/part/views/#attachments;positive;part-views,attachments;"Given a part 'Sensor Module' exists with no attachments
+Given a user with part edit permission is logged in and on the 'Attachments' tab of 'Sensor Module'
+When the user clicks the 'Add Attachment' button
+When the user uploads a file named 'datasheet.pdf'
+When the user clicks 'Submit'
+Then the Attachments tab displays 'datasheet.pdf' in the attachments list"

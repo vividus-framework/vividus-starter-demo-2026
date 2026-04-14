@@ -1,0 +1,6 @@
+id;name;source;type;tags;steps
+TC-W0VKON;Build Order for a trackable part requires serial numbers during output;https://docs.inventree.org/en/latest/part/trackable/#build-orders;positive;tracking,build-orders,trackable;"Given a part 'Sensor Module' is marked as Trackable
+Given a Build Order 'BO-SENSOR-001' exists for 'Sensor Module' with quantity 3
+Given a user with build order edit permission is logged in
+When the user completes the build and attempts to record outputs without providing serial numbers
+Then the system requires serial numbers before the build output can be submitted"

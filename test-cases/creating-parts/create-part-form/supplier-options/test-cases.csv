@@ -1,0 +1,15 @@
+id;name;source;type;tags;steps
+TC-H5T9W4;"Create purchaseable part with supplier and manufacturer information";https://docs.inventree.org/en/latest/part/create/#supplier-options;positive;creating-parts,supplier-options,purchaseable;"Given a user with 'create' permission for the Part permission group is logged in and on the Parts view
+Given at least one Supplier and one Manufacturer exist in the system
+When the user clicks the 'Add Parts' dropdown menu and selects 'Create Part'
+When the user enters 'LED Red 3mm' in the 'Part Name' field
+When the user checks the 'Purchaseable' checkbox
+When the user checks the 'Add Supplier Data' checkbox
+When the user selects an existing supplier from the supplier field
+When the user enters 'LED-RED-3MM-001' in the supplier part number field
+When the user clicks 'Submit'
+Then the part 'LED Red 3mm' is created and the Suppliers tab displays the configured supplier part"
+TC-M1B6J3;"Supplier options section is visible when creating a Purchaseable part";https://docs.inventree.org/en/latest/part/create/#supplier-options;positive;creating-parts,supplier-options,purchaseable;"Given a user with 'create' permission for the Part permission group is logged in and on the Parts view
+When the user clicks the 'Add Parts' dropdown menu and selects 'Create Part'
+When the user checks the 'Purchaseable' checkbox in the part creation form
+Then the form displays an 'Add Supplier Data' option in the Supplier Options section"

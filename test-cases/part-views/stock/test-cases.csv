@@ -1,0 +1,107 @@
+id;name;source;type;tags;steps
+TC-S7X2KP;Stock tab displays all stock items for a part with quantity, location and status;https://docs.inventree.org/en/latest/part/views/#stock;positive;part-views,stock;"Given a part 'Capacitor 100uF' exists with two stock items: one at location 'Shelf A1' with quantity 50 and status 'OK', and one at location 'Shelf B2' with quantity 10 and status 'Damaged'
+Given a user with view permission is logged in
+When the user navigates to the part detail page for 'Capacitor 100uF' and clicks the 'Stock' tab
+Then the Stock table displays a row for location 'Shelf A1' with quantity '50' and status 'OK'
+Then the Stock table displays a row for location 'Shelf B2' with quantity '10' and status 'Damaged'"
+TC-A3NW8R;Stock tab is visible on the part detail page;https://docs.inventree.org/en/latest/part/views/#stock;positive;part-views,stock;"Given a part 'Resistor 10k' exists in the system
+Given a user with view permission is logged in
+When the user navigates to the part detail page for 'Resistor 10k'
+Then the 'Stock' tab is visible in the part tab navigation bar"
+TC-B4HM1V;Stock tab shows empty state when a part has no stock items;https://docs.inventree.org/en/latest/part/views/#stock;boundary;part-views,stock;"Given a part 'New Untouched Part' exists with no stock items
+Given a user with view permission is logged in
+When the user navigates to the part detail page for 'New Untouched Part' and clicks the 'Stock' tab
+Then the Stock table shows no rows or an empty state message indicating no stock items are available"
+TC-E9LZ4C;Export downloads a file containing stock item data for the selected part;https://docs.inventree.org/en/latest/part/views/#export;positive;part-views,stock,export;"Given a part 'Inductor 10uH' exists with at least one stock item
+Given a user with view permission is logged in and on the part detail page for 'Inductor 10uH' on the 'Stock' tab
+When the user clicks the 'Export' button in the Stock tab toolbar
+Then an export options dialog is displayed
+When the user selects export format 'CSV' and clicks 'Download'
+Then a file is downloaded containing stock item data for 'Inductor 10uH'"
+TC-D1QF7J;Export dialog allows selecting export format before downloading;https://docs.inventree.org/en/latest/part/views/#export;positive;part-views,stock,export;"Given a part 'Diode 1N4148' exists with two stock items
+Given a user with view permission is logged in and on the 'Stock' tab of the part detail page for 'Diode 1N4148'
+When the user clicks the 'Export' button
+Then an export options dialog appears with format selection options
+When the user selects the 'XLSX' format option and clicks 'Download'
+Then the dialog closes and an XLSX file download is initiated"
+TC-R6VY9M;Export button is available in the Stock tab toolbar;https://docs.inventree.org/en/latest/part/views/#export;positive;part-views,stock,export;"Given a part 'LED Red 5mm' exists with at least one stock item
+Given a user with view permission is logged in
+When the user navigates to the part detail page for 'LED Red 5mm' and clicks the 'Stock' tab
+Then an 'Export' button is visible in the Stock tab toolbar"
+TC-N5WD3T;New Stock Item button launches a creation dialog;https://docs.inventree.org/en/latest/part/views/#new-stock-item;positive;part-views,stock,new-stock-item;"Given a part 'Transistor BC547' exists in the system
+Given a user with stock add permission is logged in and on the 'Stock' tab of the part detail page for 'Transistor BC547'
+When the user clicks the 'New Stock Item' button
+Then a dialog to create a new Stock Item appears with fields for quantity, location, and status"
+TC-G8PB6K;Creating a new stock item via the dialog adds it to the stock table;https://docs.inventree.org/en/latest/part/views/#new-stock-item;positive;part-views,stock,new-stock-item;"Given a part 'Fuse 1A' exists with no stock items
+Given a location 'Warehouse Row 3' exists
+Given a user with stock add permission is logged in and on the 'Stock' tab of the part detail page for 'Fuse 1A'
+When the user clicks the 'New Stock Item' button
+When the user enters '25' in the 'Quantity' field
+When the user selects 'Warehouse Row 3' in the 'Location' field
+When the user clicks 'Submit'
+Then the Stock table displays a new row with quantity '25' at location 'Warehouse Row 3'"
+TC-M2XC5W;Creating a new stock item with zero quantity is rejected;https://docs.inventree.org/en/latest/part/views/#new-stock-item;boundary;part-views,stock,new-stock-item;"Given a part 'Relay 12V' exists in the system
+Given a user with stock add permission is logged in and on the 'Stock' tab of the part detail page for 'Relay 12V'
+When the user clicks the 'New Stock Item' button
+When the user enters '0' in the 'Quantity' field
+When the user clicks 'Submit'
+Then an error message is displayed indicating that quantity must be greater than zero
+Then no new stock item is created for 'Relay 12V'"
+TC-H7FN0Q;New Stock Item button is hidden from users without stock add permission;https://docs.inventree.org/en/latest/part/views/#new-stock-item;negative;part-views,stock,new-stock-item,permissions;"Given a part 'Connector USB-C' exists in the system
+Given a user with view-only permission (no stock add permission) is logged in
+When the user navigates to the part detail page for 'Connector USB-C' and clicks the 'Stock' tab
+Then the 'New Stock Item' button is not visible in the Stock tab toolbar"
+TC-K3YA8L;Stock Actions drop-down is enabled when stock items are selected in the table;https://docs.inventree.org/en/latest/part/views/#stock-actions;positive;part-views,stock,stock-actions;"Given a part 'Potentiometer 10k' exists with at least one stock item
+Given a user with stock edit permission is logged in and on the 'Stock' tab of the part detail page for 'Potentiometer 10k'
+When the user selects one or more rows in the Stock table using the row checkboxes
+Then the 'Stock Actions' drop-down menu becomes enabled and is clickable"
+TC-P4ZB2N;Stock Actions drop-down is disabled when no stock items are selected;https://docs.inventree.org/en/latest/part/views/#stock-actions;negative;part-views,stock,stock-actions;"Given a part 'Crystal 16MHz' exists with at least one stock item
+Given a user with stock edit permission is logged in and on the 'Stock' tab of the part detail page for 'Crystal 16MHz'
+When the user views the Stock tab with no rows selected
+Then the 'Stock Actions' drop-down menu is disabled or not actionable"
+TC-T9WR1H;Stock Actions move operation transfers selected stock items to a new location;https://docs.inventree.org/en/latest/part/views/#stock-actions;positive;part-views,stock,stock-actions;"Given a part 'Op-Amp LM741' exists with a stock item at location 'Bin A' with quantity 30
+Given locations 'Bin A' and 'Bin B' exist
+Given a user with stock move permission is logged in and on the 'Stock' tab of the part detail page for 'Op-Amp LM741'
+When the user selects the stock item row for location 'Bin A'
+When the user opens the 'Stock Actions' drop-down and selects 'Move'
+When the user selects 'Bin B' as the destination location and clicks 'Submit'
+Then the Stock table shows the stock item is now located at 'Bin B'
+Then no stock item remains at 'Bin A' for 'Op-Amp LM741'"
+TC-J6CV4S;Stock Actions count operation updates the quantity of a selected stock item;https://docs.inventree.org/en/latest/part/views/#stock-actions;positive;part-views,stock,stock-actions;"Given a part 'Switch SPDT' exists with a stock item showing quantity 20
+Given a user with stock count permission is logged in and on the 'Stock' tab of the part detail page for 'Switch SPDT'
+When the user selects the stock item row in the Stock table
+When the user opens the 'Stock Actions' drop-down and selects 'Count'
+When the user enters '18' in the quantity field and clicks 'Submit'
+Then the Stock table row reflects the updated quantity '18' for that stock item"
+TC-F8DH3U;Stock Actions delete removes selected stock items from the table;https://docs.inventree.org/en/latest/part/views/#stock-actions;positive;part-views,stock,stock-actions;"Given a part 'Buzzer 5V' exists with two stock items
+Given a user with stock delete permission is logged in and on the 'Stock' tab of the part detail page for 'Buzzer 5V'
+When the user selects the first stock item row
+When the user opens the 'Stock Actions' drop-down and selects 'Delete'
+When the user confirms the deletion in the confirmation dialog
+Then the selected stock item no longer appears in the Stock table
+Then the remaining second stock item is still present in the table"
+TC-W1ML6E;Stock table shows total in-stock quantity across all locations;https://docs.inventree.org/en/latest/part/views/#stock;positive;part-views,stock;"Given a part 'Capacitor 47uF' exists with stock items: 20 units at 'Shelf C1' and 15 units at 'Shelf C2'
+Given a user with view permission is logged in
+When the user navigates to the part detail page for 'Capacitor 47uF' and clicks the 'Stock' tab
+Then the Stock tab or part detail header reflects a total available quantity of '35'"
+TC-Q5YT0X;Stock tab reflects the status of each stock item accurately;https://docs.inventree.org/en/latest/part/views/#stock;positive;part-views,stock;"Given a part 'Thermistor NTC' exists with stock items having statuses 'OK', 'Attention', and 'Damaged'
+Given a user with view permission is logged in
+When the user navigates to the part detail page for 'Thermistor NTC' and clicks the 'Stock' tab
+Then the Stock table displays each stock item with its correct status: 'OK', 'Attention', and 'Damaged' respectively"
+TC-L2KE7G;Stock Actions are not available to users without stock edit permission;https://docs.inventree.org/en/latest/part/views/#stock-actions;negative;part-views,stock,stock-actions,permissions;"Given a part 'Relay 5V' exists with a stock item
+Given a user with view-only permission (no stock edit or delete permissions) is logged in
+When the user navigates to the part detail page for 'Relay 5V' and clicks the 'Stock' tab
+Then the 'Stock Actions' drop-down menu is not visible or all stock action options are disabled"
+TC-U4BJ9F;New Stock Item inherits the part automatically in the creation dialog;https://docs.inventree.org/en/latest/part/views/#new-stock-item;positive;part-views,stock,new-stock-item;"Given a part 'IC NE555' exists in the system
+Given a user with stock add permission is logged in and on the 'Stock' tab of the part detail page for 'IC NE555'
+When the user clicks the 'New Stock Item' button
+Then the creation dialog pre-populates the 'Part' field with 'IC NE555'"
+TC-V3RN5D;Stock tab for a trackable part shows serial numbers for each stock item;https://docs.inventree.org/en/latest/part/views/#stock;positive;part-views,stock,tracking;"Given a part 'PCB Assembly v1' exists and is marked as 'Trackable'
+Given three stock items with serial numbers 'SN-001', 'SN-002', 'SN-003' exist for this part
+Given a user with view permission is logged in
+When the user navigates to the part detail page for 'PCB Assembly v1' and clicks the 'Stock' tab
+Then the Stock table displays individual rows for serial numbers 'SN-001', 'SN-002', and 'SN-003'"
+TC-C8WX2A;Export button for a part with no stock items produces an empty or header-only file;https://docs.inventree.org/en/latest/part/views/#export;boundary;part-views,stock,export;"Given a part 'Empty Component' exists with no stock items
+Given a user with view permission is logged in and on the 'Stock' tab of the part detail page for 'Empty Component'
+When the user clicks the 'Export' button and downloads the file
+Then the exported file is downloadable (no error occurs) and contains only the header row with no data rows"

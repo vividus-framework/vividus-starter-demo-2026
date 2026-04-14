@@ -1,0 +1,8 @@
+id;name;source;type;tags;steps
+TC-S2Z5E8;"Import a new part from a supplier via the Part Category view";https://docs.inventree.org/en/latest/part/create/#import-a-part;positive;creating-parts,import-from-supplier;"Given a supplier mixin plugin is installed, enabled, and configured with the supplier company and API token
+Given a user with 'create' permission for the Part permission group is logged in
+When the user navigates to the Part Category view
+When the user clicks the 'Import Part' button
+When the user follows the import wizard to confirm the category, select parameters, and optionally create initial stock
+When the user clicks 'Submit'
+Then the imported part appears in the part category list with the supplier-provided name and description"

@@ -1,0 +1,6 @@
+id;name;source;type;tags;steps
+TC-6IZ4WK;Virtual parts are hidden from required parts list in a Build Order;https://docs.inventree.org/en/latest/part/virtual/#build-orders;positive;virtual-parts,build-orders;"Given a part 'PCB Assembly' is marked as Assembly and its BOM includes 'Resistor 10k' (physical) and 'Labor Hour' (virtual)
+Given a user with build order permission is logged in
+When the user creates a Build Order for 'PCB Assembly' with quantity 5
+When the user views the required parts list in the build order
+Then the required parts list shows 'Resistor 10k' but does not show 'Labor Hour'"

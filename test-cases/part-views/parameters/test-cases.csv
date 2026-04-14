@@ -1,0 +1,5 @@
+id;name;source;type;tags;steps
+TC-0NFTMC;Parameters tab displays defined parameters for a part;https://docs.inventree.org/en/latest/part/views/#parameters;positive;part-views,parameters;"Given a part 'Resistor 10k' has parameters: 'Resistance' = '10kΩ', 'Power Rating' = '0.125W', 'Package' = '0402'
+Given a user is logged in
+When the user navigates to the part detail page for 'Resistor 10k' and clicks the 'Parameters' tab
+Then the parameters table displays 'Resistance: 10kΩ', 'Power Rating: 0.125W', and 'Package: 0402'"

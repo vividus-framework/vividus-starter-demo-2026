@@ -1,0 +1,14 @@
+id;name;source;type;tags;steps
+TC-P4G8Y2;"Import parts from a file using the data import wizard";https://docs.inventree.org/en/latest/part/create/#import-from-file;positive;creating-parts,import-from-file;"Given a user with 'create' permission for the Part permission group is logged in and on the Parts view
+Given a valid CSV file containing part data is available
+When the user clicks the 'Add Parts' dropdown menu and selects 'Import from File'
+Then the data import wizard opens
+When the user uploads the CSV file and maps required fields to the corresponding part fields
+When the user completes all wizard steps and clicks 'Submit'
+Then the imported parts appear in the parts table with correct names and descriptions"
+TC-C7L3V9;"Import from File wizard blocks submission when required field mapping is missing";https://docs.inventree.org/en/latest/part/create/#import-from-file;negative;creating-parts,import-from-file,validation;"Given a user with 'create' permission for the Part permission group is logged in and on the Parts view
+Given a CSV file with a column for part description but no column that can be mapped to 'Part Name' is available
+When the user clicks the 'Add Parts' dropdown menu and selects 'Import from File'
+When the user uploads the CSV file
+When the user attempts to proceed without mapping the required 'Part Name' field
+Then the wizard displays an error indicating the required 'Part Name' field mapping is missing and does not advance"

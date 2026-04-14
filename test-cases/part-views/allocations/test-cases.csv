@@ -1,0 +1,13 @@
+id;name;source;type;tags;steps
+TC-CORZKO;Allocated tab is hidden for a part that is neither Component nor Salable;https://docs.inventree.org/en/latest/part/views/#allocations;negative;part-views,allocations;"Given a part 'Process Step A' is not marked as 'Component' and not marked as 'Salable'
+Given a user is logged in
+When the user navigates to the part detail page for 'Process Step A'
+Then the 'Allocated' tab is not visible in the tab bar"
+TC-IIKLPJ;Allocated tab is visible for a Component part;https://docs.inventree.org/en/latest/part/views/#allocations;positive;part-views,allocations,component;"Given a part 'Resistor 10k' is marked as 'Component'
+Given a user is logged in
+When the user navigates to the part detail page for 'Resistor 10k'
+Then the 'Allocated' tab is visible in the tab bar"
+TC-UNNL1W;Allocated tab is visible for a Salable part;https://docs.inventree.org/en/latest/part/views/#allocations;positive;part-views,allocations,salable;"Given a part 'Finished PCB' is marked as 'Salable' but not as 'Component'
+Given a user is logged in
+When the user navigates to the part detail page for 'Finished PCB'
+Then the 'Allocated' tab is visible in the tab bar"

@@ -1,0 +1,7 @@
+id;name;source;type;tags;steps
+TC-R6K2M8;"Add Parts menu is hidden for user without create permission";https://docs.inventree.org/en/latest/part/create/#part-creation;negative;creating-parts,permissions,part-creation;"Given a user without 'create' permission for the Part permission group is logged in
+When the user navigates to the Parts view
+Then the 'Add Parts' dropdown menu is not visible above the parts table"
+TC-J1Y5B3;"Add Parts menu is visible to user with create permission";https://docs.inventree.org/en/latest/part/create/#part-creation;positive;creating-parts,permissions,part-creation;"Given a user with 'create' permission for the Part permission group is logged in
+When the user navigates to the Parts view
+Then the 'Add Parts' dropdown menu is visible above the parts table"
