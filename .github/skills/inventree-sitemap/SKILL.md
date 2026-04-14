@@ -5,8 +5,8 @@ description: "Provides the InvenTree demo application sitemap. Use when: automat
 
 # InvenTree Application Sitemap
 
-**Base URL:** `https://demo.inventree.org`  
-**Login:** `https://demo.inventree.org/web/login` (credentials: `admin` / `inventree`)
+**Base URL:** `http://inventree.localhost/`  
+**Login:** `http://inventree.localhost/web/login` (credentials: `admin` / `admin`)
 
 ---
 
@@ -34,6 +34,51 @@ Lands at: `/web/part/category/index/details`
 | Category Details | `/web/part/category/index/details/details` |
 | Part Categories | `/web/part/category/index/details/subcategories` |
 | Parts | `/web/part/category/index/details/parts` |
+
+### Creating a New Part
+
+Navigate to: `/web/part/category/index/parts`
+
+**Steps:**
+1. Click button `name(action-menu-add-parts)` — opens the Add Parts dropdown menu
+2. Click menuitem `name(action-menu-add-parts-create-part)` — opens the Create Part dialog
+3. Wait for `caseInsensitiveText(Initial Stock)` to confirm dialog is open
+
+**Create Part dialog fields:**
+
+| Field | Locator | Notes |
+|-------|---------|-------|
+| Part Name (required) | `name(text-field-name)` | Free text |
+| IPN | `name(text-field-IPN)` | Internal Part Number |
+| Description | `name(text-field-description)` | Free text |
+| Revision | `name(text-field-revision)` | Free text |
+| Keywords | `name(text-field-keywords)` | Free text |
+| Units | `name(text-field-units)` | Free text |
+| Link | `name(text-field-link)` | External URL |
+| Minimum Stock | `name(number-field-minimum_stock)` | Default: 0 |
+| Category | `name(related-field-category)` | Combobox search |
+| Revision Of | `name(related-field-revision_of)` | Combobox search |
+| Variant Of | `name(related-field-variant_of)` | Combobox search |
+| Default Location | `name(related-field-default_location)` | Combobox search |
+| Responsible | `name(related-field-responsible)` | Combobox search |
+| Component | `name(boolean-field-component)` | Switch (default: on) |
+| Assembly | `name(boolean-field-assembly)` | Switch (default: off) |
+| Is Template | `name(boolean-field-is_template)` | Switch (default: off) |
+| Testable | `name(boolean-field-testable)` | Switch (default: off) |
+| Trackable | `name(boolean-field-trackable)` | Switch (default: off) |
+| Purchaseable | `name(boolean-field-purchaseable)` | Switch (default: on) |
+| Salable | `name(boolean-field-salable)` | Switch (default: off) |
+| Virtual | `name(boolean-field-virtual)` | Switch (default: off) |
+| Locked | `name(boolean-field-locked)` | Switch (default: off) |
+| Active | `name(boolean-field-active)` | Switch (default: on) |
+| Initial Stock Quantity | `name(number-field-initial_stock.quantity)` | Default: 0 |
+| Initial Stock Location | `name(related-field-initial_stock.location)` | Combobox search |
+
+**Submit:** Click `buttonName(Submit)`  
+**Wait for success:** `caseInsensitiveText(Item Created)`  
+**Wait for dismiss:** wait until `caseInsensitiveText(Item Created)` disappears
+
+---
 
 ### Individual Part Page — `/web/part/<id>/details`
 

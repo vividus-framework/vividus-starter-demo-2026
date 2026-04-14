@@ -63,6 +63,35 @@ When aborting, explain what is missing and request a complete test case.
 
 Use Playwright MCP to execute test cases and collect element locators for VIVIDUS story generation in Step 4.
 
+### ⚠️ MANDATORY Execution Order — Data Setup FIRST
+
+**CRITICAL RULE**: Before performing ANY verification or navigation to the page under test, you **MUST** complete ALL test data creation steps first. Execution follows this strict phased order:
+
+#### Phase 1: Analyze test data requirements
+Before touching the browser, read ALL test case steps and identify every piece of data that must exist:
+- Infrastructure data: locations, categories, warehouses, companies, etc.
+- Domain data: parts, stock items, orders, BOMs, etc.
+- Relationships: part → stock items → locations, part → category, etc.
+- Special states: statuses (Damaged, Attention), permissions, settings, etc.
+
+Document the **full dependency graph** before proceeding.
+
+#### Phase 2: Create ALL test data via UI (in dependency order)
+Execute ALL `Given` steps through the UI in dependency order:
+1. **First**: Create independent entities (locations, categories, companies — things with no dependencies)
+2. **Second**: Create dependent entities (parts that need categories, stock items that need parts + locations)
+3. **Third**: Set states/statuses (mark items as Damaged, configure settings, assign permissions)
+
+**DO NOT** navigate to the page under test or perform ANY `When`/`Then` step until ALL data exists.
+
+#### Phase 3: Execute test actions and verifications
+Only after ALL test data is confirmed created:
+1. Navigate to the page under test
+2. Perform `When` actions
+3. Verify `Then` expectations
+
+**VIOLATION**: Navigating to the Stock tab, Part detail page, or any verification target before all required parts, locations, stock items, and statuses are fully created via UI is a **hard violation** of this rule.
+
 ### Execution process
 
 1. **Navigate**: `browser_navigate(url)` - URL from test case or user prompt
@@ -118,7 +147,7 @@ Do **NOT** proceed with assumptions in these situations. Stop execution and requ
 VIVIDUS capabilities and project discovery:
 1. Agent **MUST** fetch available VIVIDUS steps using `vividus_get_all_features()` command
 2. Read existing resources to learn patterns and conventions:
-    - `src/main/resources/story/**/*.story` — existing stories
+    - `src/main/resources/story/**/*.story` — existing stories (except generated and rest_api folders)
     - `src/main/resources/steps/*.steps` — reusable composite steps
 3. Lifecycle and Examples usage (transformers, data tables), scenario structure and naming, meta tags
 
@@ -129,6 +158,7 @@ VIVIDUS capabilities and project discovery:
 2. **Preserve exact syntax** - do not modify step parameters or structure
 3. **Use exact locator strategies**: `cssSelector`, `xpath`, `id`, `caseInsensitiveText`, `name`
 4. **If a required step is NOT available** - DO NOT silently ignore, mark as `[MISSING STEP]`
+5. **🚫 NO API CALLS EVER** — Using REST API, HTTP requests, or any backend calls to create test data or verify state is **strictly forbidden**. All test data **MUST** be created exclusively through the UI. This rule has no exceptions.
 
 ### Coverage Mapping
 
@@ -163,6 +193,17 @@ In summary report for each test case step, assess coverage status and notes:
    - **NEVER** assume pre-seeded or pre-existing data (e.g., hardcoded IDs, assumed part names)
    - **ALWAYS** create all required test data via UI steps within the same scenario
    - Append the test case ID (e.g., `TC-XXXXX`) to all created entity names to guarantee uniqueness and traceability (e.g., `Resistor 10k TC-A3F8K1`)
+7. **🚫 UI-ONLY TEST DATA (ABSOLUTE RULE):** Test data creation via REST API, HTTP steps, or any non-UI mechanism is **completely forbidden**.
+   - **NEVER** use `When I execute HTTP POST/PUT/DELETE request` to seed data
+   - **NEVER** call InvenTree API endpoints directly to create parts, stock items, locations, or any entities
+   - **ALWAYS** navigate through the application UI to create every piece of required test data
+   - If creating data via UI seems complex, find the UI path — **do NOT fall back to API**
+8. **📋 DATA-FIRST Story Structure (MANDATORY):** Every scenario **MUST** follow this strict ordering:
+   - **FIRST BLOCK — Data Setup**: ALL `Given` preconditions (create locations, categories, parts, stock items, set statuses) must come BEFORE any navigation to the page under test
+   - **SECOND BLOCK — Test Actions**: `When` steps (navigate to page, click tabs, interact with elements)
+   - **THIRD BLOCK — Verifications**: `Then` assertions and visual baselines
+   - **NEVER** interleave verification steps with data creation steps
+   - **NEVER** navigate to the test target page before ALL required test data is fully created
 
 ### Locator Stability Hierarchy
 When identifying elements, you **MUST** prefer locators in this order:
