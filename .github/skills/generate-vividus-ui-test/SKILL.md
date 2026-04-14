@@ -2,7 +2,6 @@
 name: generate-vividus-ui-test
 description: 'Generate VIVIDUS test automation stories from test cases for web applications. Creates executable .story files following VIVIDUS syntax and project conventions. Use when: converting manual test cases to automated VIVIDUS stories, creating UI test automation from test specifications.'
 argument-hint: 'Enter your test case...'
-allowed-tools: shell
 ---
 
 # Process Overview
@@ -17,13 +16,41 @@ allowed-tools: shell
 
 ## Step 1: Retrieve test cases
 
-Extract test case(s) from the user's prompt input.
+Test cases can be provided in two ways — extract from whichever source the user supplies:
+
+### Source A: CSV File
+
+When the user attaches or references a `.csv` file, parse it as follows:
+
+1. **Read** the file using the `read_file` tool (use the absolute path from the attachment or user prompt)
+2. **Parse** the CSV — the expected columns are:
+
+| Column | Description |
+|--------|-------------|
+| `id` | Test case ID (e.g. `TC-K7M2P9`) |
+| `name` | Human-readable test case title |
+| `source` | Reference URL (requirement link) |
+| `type` | Test type (`positive`, `negative`, `configuration`, etc.) |
+| `tags` | Pipe-separated tags (e.g. `creating-parts\|initial-stock`) |
+| `steps` | Full test steps and expected results as a single multi-line string |
+
+3. **Select** the test case(s) to automate based on the user's instruction (e.g. "first test case", "all", specific ID). If the user says "first test case", take only the first row. If the user says "all", process each row sequentially.
+4. **Map** each CSV row to the internal test case structure:
+   - `id` → `@testCaseId` meta tag
+   - `source` → `@requirementId` meta tag (use the URL as-is)
+   - `tags` → `@feature` meta tag (use the first tag segment before `|`)
+   - `steps` field contains both the test steps AND the expected result — parse the `Given`/`When`/`Then` lines to extract the flow
+
+### Source B: Inline prompt
+
+When no CSV is provided, extract test case(s) directly from the user's prompt text.
 
 Each test case **must** contain:
 - **Test Steps**: Numbered, sequential actions to perform
 - **Expected Results**: Clear, verifiable outcomes for each step or the entire test
 
 **ABORT** further execution if:
+- No CSV file and no inline test case text is provided
 - Test steps are missing or not provided
 - Expected results are not defined
 - Input does not represent a valid test case structure

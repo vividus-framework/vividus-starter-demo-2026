@@ -8,7 +8,10 @@ When I save JSON element value from `${response}` by JSON path `$.token` to <var
 
 Composite: When I login to web app with username `${username}` and password `${password}`
 Given I am on main application page
+When I wait until element located by `fieldName(username)` appears
+When I remove all cookies from current domain
 When I enter `<username>` in field located by `fieldName(username)`
 When I enter `<password>` in field located by `fieldName(password)`
 When I click on element located by `caseInsensitiveText(Log In)`
 When I wait until element located by `caseInsensitiveText(Logged in successfully)` appears
+When I wait until element located by `linkText(Dashboard)` appears

@@ -9,15 +9,6 @@
         "."
       ]
     },
-    "vividus-win": {
-      "command": "gradlew.bat",
-      "args": [
-        "startMcpServer",
-        "-q",
-        "-p",
-        "."
-      ]
-    },
     "playwright": {
       "command": "npx",
       "args": [

@@ -1,0 +1,27 @@
+Composite: When I navigate to parts list
+When I click on element located by `linkText(Parts)`
+When I wait until element located by `caseInsensitiveText(Part Categories)` appears
+When I click on element located by `xpath(//button[contains(@id, 'tab-parts')])`
+
+Composite: When I open create part form
+When I click on element located by `name(action-menu-add-parts)`
+When I wait until element located by `name(action-menu-add-parts-create-part)` appears
+When I click on element located by `name(action-menu-add-parts-create-part)`
+
+Composite: When I create part with name `$name` and initial stock quantity `$quantity`
+When I wait until element located by `caseInsensitiveText(Initial Stock)` appears
+When I enter `<name>` in field located by `name(text-field-name)`
+When I clear field located by `name(number-field-initial_stock.quantity)`
+When I enter `<quantity>` in field located by `name(number-field-initial_stock.quantity)`
+When I click on element located by `buttonName(Submit)`
+When I wait until element located by `caseInsensitiveText(Item Created)` appears
+When I wait until element located by `caseInsensitiveText(Item Created)` disappears
+When I wait until element located by `caseInsensitiveText(<name>)` appears
+
+Composite: When I open stock tab
+When I click on element located by `xpath(//button[contains(@id, 'tab-stock') and @data-placement])`
+When I wait until element located by `tagName(table)` appears
+
+Composite: When I open parts system settings
+When I go to relative URL `/web/settings/system/parts`
+When I wait until element located by `caseInsensitiveText(System Settings)` appears
