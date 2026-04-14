@@ -1,4 +1,4 @@
-Composite: When I save access token for user with username `$username` and password `$password` to `$variableLevel` variable `$variableName`
+Composite: When I save access token for user with username `$username` and password `$password` to $variableLevel variable `$variableName`
 When I add request headers:
 |name         |value                                         |
 |Authorization|Basic #{encodeToBase64(<username>:<password>)}|

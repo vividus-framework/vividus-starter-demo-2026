@@ -1,5 +1,5 @@
 Scenario: get server status
-When I save access token for user with username `${username}` and password `${password}` to `story` variable `token`
+When I save access token for user with username `${username}` and password `${password}` to story variable `token`
 When I add request headers:
 |name         |value           |
 |Authorization|Token ${token}  |

@@ -1,40 +1,53 @@
 #!/usr/bin/env bash
-# Fetches the latest InvenTree OpenAPI spec from github.com/inventree/schema,
-# saves it to .github/skills/generate-vividus-api-tests/openapi.yaml inside the
-# repository, and prints the absolute path to stdout for the caller to use.
+# Fetches all InvenTree schema files from github.com/inventree/schema and prints
+# the absolute path to the version folder.
+# Usage: bash save-openapi.sh [API_VERSION]
+# API_VERSION: optional version folder (e.g. 479). Omit to fetch the latest.
+#
+# Downloaded files:
+#   <version>/api.yaml                 — OpenAPI specification
+#   <version>/inventree_filters.yml    — Django template filters
+#   <version>/inventree_settings.json  — Global & user settings with defaults
+#   <version>/inventree_tags.yml       — Django template tags
 set -euo pipefail
 
 OWNER="inventree"
 REPO="schema"
 BRANCH="main"
-
-# Resolve the repository root (directory containing this script's parent chain)
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-OUTPUT_FILE="$SCRIPT_DIR/openapi.yaml"
+BASE_URL="https://raw.githubusercontent.com/$OWNER/$REPO/$BRANCH/export"
 
-response=$(curl -s "https://api.github.com/repos/$OWNER/$REPO/contents/export?ref=$BRANCH")
+if [ -n "${1:-}" ]; then
+  version="$1"
+else
+  response=$(curl -sf "https://api.github.com/repos/$OWNER/$REPO/contents/export?ref=$BRANCH") || {
+    echo "Failed to list versions from GitHub API" >&2; exit 1
+  }
+  version=$(
+    paste \
+      <(echo "$response" | grep '"name"' | sed 's/.*"name": *"\([^"]*\)".*/\1/') \
+      <(echo "$response" | grep '"type"' | sed 's/.*"type": *"\([^"]*\)".*/\1/') \
+    | awk -F'\t' '$2 == "dir" {print $1}' \
+    | sort -V | tail -n 1
+  )
+  [ -n "$version" ] || { echo "No version folders found in export/" >&2; exit 1; }
+fi
 
-latest_dir=$(
-  paste \
-    <(echo "$response" | grep '"name"' | sed 's/.*"name": *"\([^"]*\)".*/\1/') \
-    <(echo "$response" | grep '"type"' | sed 's/.*"type": *"\([^"]*\)".*/\1/') \
-  | awk -F'\t' '$2 == "dir" {print $1}' \
-  | sort -V \
-  | tail -n 1
+OUTPUT_DIR="$SCRIPT_DIR/$version"
+mkdir -p "$OUTPUT_DIR"
+
+FILES=(
+  "api.yaml"
+  "inventree_filters.yml"
+  "inventree_settings.json"
+  "inventree_tags.yml"
 )
 
-if [ -z "$latest_dir" ]; then
-  echo "No folders found in export/" >&2
-  exit 1
-fi
+for file in "${FILES[@]}"; do
+  curl -sfL "$BASE_URL/$version/$file" -o "$OUTPUT_DIR/$file" || {
+    echo "Failed to download '$file' for version '${version}'" >&2; exit 1
+  }
+  [ -s "$OUTPUT_DIR/$file" ] || { echo "Downloaded file is empty: $OUTPUT_DIR/$file" >&2; exit 1; }
+done
 
-curl -sL \
-  "https://raw.githubusercontent.com/$OWNER/$REPO/$BRANCH/export/$latest_dir/api.yaml" \
-  -o "$OUTPUT_FILE"
-
-if [ ! -s "$OUTPUT_FILE" ]; then
-  echo "Downloaded file is empty: $OUTPUT_FILE" >&2
-  exit 1
-fi
-
-echo "$OUTPUT_FILE"
+echo "$OUTPUT_DIR"
