@@ -48,6 +48,8 @@ When I wait until element located by `xpath(//div[@role='option'][contains(.,'Sh
 When I click on element located by `xpath(//div[@role='option'][contains(.,'Shelf A1 TC-S7X2KP')])`
 When I click on element located by `buttonName(Submit)`
 When I wait until element located by `tagName(table)` appears
+!-- ADDED AFTER GENERATION
+When I navigate back
 
 !-- Add second stock item: qty 10, location Shelf B2, status Damaged
 When I click on element located by `name(action-button-add-stock-item)`
@@ -63,6 +65,8 @@ When I wait until element located by `xpath(//div[@role='option'][contains(.,'Da
 When I click on element located by `xpath(//div[@role='option'][contains(.,'Damaged')])`
 When I click on element located by `buttonName(Submit)`
 When I wait until element located by `tagName(table)` appears
+!-- ADDED AFTER GENERATION
+When I navigate back
 
 !-- === PHASE 4: NAVIGATE TO STOCK TAB AND VERIFY ===
 When I open stock tab
