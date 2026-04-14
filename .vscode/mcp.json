@@ -1,0 +1,28 @@
+{
+  "servers": {
+    "vividus-unix": {
+      "command": "./gradlew",
+      "args": [
+        "startMcpServer",
+        "-q",
+        "-p",
+        "."
+      ]
+    },
+    "vividus-win": {
+      "command": "gradlew.bat",
+      "args": [
+        "startMcpServer",
+        "-q",
+        "-p",
+        "."
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
+    }
+  }
+}
